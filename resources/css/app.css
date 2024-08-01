@@ -5,3 +5,46 @@
 [x-cloak] {
     display: none;
 }
+
+.p-datatable-header {
+    background-color: transparent !important;
+    border-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+ 
+@media (prefers-color-scheme: dark) {
+    .p-datatable-thead > tr > th {
+        --tw-bg-opacity: 1;
+        background-color: rgb(31 41 55 / var(--tw-bg-opacity)) !important;
+        
+    }
+    
+}
+
+.p-datatable-thead>tr>th:first-child {
+    border-top-left-radius: 0.5rem !important;
+}
+
+.p-datatable-thead>tr>th:last-child {
+    border-top-right-radius: 0.5rem !important;
+}
+
+.p-datatable-tbody>tr>td:last-child {
+    border-bottom-right-radius: 0.5rem !important; 
+}
+
+.p-datatable-tbody>tr>td:first-child {
+    border-bottom-left-radius: 0.5rem !important; 
+} 
+
+.p-datatable-tbody>tr:last-child {
+    border-bottom: 0 !important;
+}
+/* 
+.p-datatable {
+    -tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+} */
