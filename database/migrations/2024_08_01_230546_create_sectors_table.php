@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('sectors', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->uniqiue();
-            $table->string('description')->nullable();
-            $table->boolval('status')->default(true);
+            $table->string('name', 20)->uniqiue();
+            $table->text('description')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
