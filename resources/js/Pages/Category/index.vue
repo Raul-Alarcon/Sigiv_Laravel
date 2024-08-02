@@ -1,8 +1,13 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { ref } from 'vue';
+
+import { getInstance } from '@/Utils/Toast';
 import { useToast } from 'primevue/usetoast';
 import Modal from '@/Components/Modal.vue';
+import { useForm } from '@inertiajs/vue3'
+import { category, service } from '@/Services/CategoryService';
+
 
 defineProps({
     categories: {
@@ -11,7 +16,7 @@ defineProps({
     }
 });
 
-const toast = useToast();
+const toast = getInstance(useToast());
 const options = ref([
     { label: 'Enable', value: 'Enable' },
     { label: 'Disable', value: 'Disable' }
@@ -19,15 +24,17 @@ const options = ref([
 const selectionOption = ref({ label: 'Disable', value: 'Disable' });
 const loading = ref(false);
 const showModal = ref(false)
+const form = useForm({
+    ...category
+});
 
 
 const handlerEdit = (category) => {
-    toast.add({ severity: 'success', summary: 'Edit', detail: 'Edit category with id: ' + category.id, life: 3000 });
+    toast.success('Edit category with id: ' + category.id);
     console.log("Estamos editando la categoria con id: " + category.id);
 }
 
-const handlerDelete = (category) => {
-    toast.add({ severity: 'success', summary: 'Delete', detail: 'Delete category with id: ' + category.id, life: 3000 });
+const handlerDelete = (category) => { 
 }
 
 
@@ -36,13 +43,13 @@ const handlerSelectedButton = () => {
 }
 
 const handlerChangeStatus = (category) => {
-    loading.value = true;
-    setTimeout(() => {
-        toast.add({ severity: 'success', summary: 'Status', detail: 'Change status category with id: ' + category.id, life: 3000 });
-        loading.value = false;
-    }, 3000);
+    // loading.value = true;
+    // setTimeout(() => {
+    //     toast.add({ severity: 'success', summary: 'Status', detail: 'Change status category with id: ' + category.id, life: 3000 });
+    //     loading.value = false;
+    // }, 3000);
 }
- 
+
 </script>
 
 <template>
@@ -68,7 +75,7 @@ const handlerChangeStatus = (category) => {
                 </div>
 
                 <div class="flex items-center mt-4 gap-x-3">
-                    <Button label="Export" icon="pi pi-cloud-upload" severity="contrast" outlined="">
+                    <Button label="Export" @click="handlerEdit" icon="pi pi-cloud-upload" severity="contrast" outlined="">
                     </Button>
 
                     <Button label="Add Category" icon="pi pi-plus-circle" @click="showModal = true">
@@ -101,9 +108,9 @@ const handlerChangeStatus = (category) => {
                                 </IconField>
                             </div>
                         </div>
-                    </template> 
+                    </template>
 
-                    <template #empty> 
+                    <template #empty>
                         Aun no tienes registrs de categorias que mostrar
                     </template>
                     <Column header="ID" field="id"></Column>
@@ -145,34 +152,28 @@ const handlerChangeStatus = (category) => {
 
                     </div>
 
-                    <form>
+                    <form @submit.prevent="service.create">
                         <div class="grid gap-4">
                             <label for="nameCategory" class="flex flex-col-reverse">
-                                <InputText id="nameCategory" placeholder="Name for category">
+                                <InputText v-model="form.name" id="nameCategory" placeholder="Name for category">
                                 </InputText>
                                 <span class="font-semibold text-gray-600">Name</span>
                             </label>
 
                             <label for="descriptionCategory" class="flex flex-col-reverse">
-                                <Textarea placeholder="Description for category" :rows="4">
-                    </Textarea>
+                                <Textarea v-model="form.description" placeholder="Description for category"
+                                    :rows="4"></Textarea>
                                 <span class="font-semibold text-gray-600">Description</span>
                             </label>
 
-
                             <div class="flex justify-between space-x-4 items-center">
-                                <ToggleSwitch>
-
-                                </ToggleSwitch>
-                                <Button label="Save" icon="pi pi-save">
-                                </Button>
+                                <ToggleSwitch v-model="form.status"></ToggleSwitch>
+                                <Button label="Save" type="submit" icon="pi pi-save"></Button>
                             </div>
                         </div>
-                    </form>
-
+                    </form> 
                 </div>
-            </Modal>
-
+            </Modal> 
         </section>
     </app-layout>
 </template>
