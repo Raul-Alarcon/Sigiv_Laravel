@@ -1,12 +1,5 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
-import RadioButton from 'primevue/radiobutton';
-
-import { ref } from 'vue';
-
-const ingredient = ref('');
-
 </script>
 
 <template>
@@ -16,8 +9,7 @@ const ingredient = ref('');
                 Dashboard
             </h2>
         </template>
-
-        <div class="py-12">
+        <!-- <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <i class="pi pi-check"></i>
                 <i class="pi pi-times"></i>
@@ -47,6 +39,6 @@ const ingredient = ref('');
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </AppLayout>
 </template>
