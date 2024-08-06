@@ -9,4 +9,10 @@ class sector extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'description', 'status'];
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
+    public $timestamps = true;
 }

@@ -12,11 +12,11 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
-    } 
+    }
 
     public function index(){
         $categories = $this->categoryService->index();
-        
+
         return Inertia::render('Category/index', [
             'categories' => $categories
         ]);

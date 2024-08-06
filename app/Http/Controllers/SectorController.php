@@ -1,64 +1,53 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Services\SectorService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Models\Sector;
 
 class SectorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $sectorService;
+    public function __construct(SectorService $sectorService)
+    {
+        $this->sectorService = $sectorService;
+    }
+
     public function index()
     {
-        //
+        $sectors = $this->sectorService->index();
+
+        return Inertia::render('Sector/index', [
+            'sectors' => $sectors
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function changeStatus(String $id){
+        $sector = Sector::find($id);
+        if (!$sector) {
+            return response()->json(['message' => 'Sector not found'], 404);
+        }
+        $sector->status = !$sector->status;
+        $sector->update();
+        return response()->json($sector, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request = $this->sectorService->store($request);
+        return response()->json($request, 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $sector = $this->sectorService->update($request, $id);
+        return response()->json(['El Sector se actualizo con exito', $sector], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $sector = $this->sectorService->destroy($id);
+        return response()->json(['El Sector se elimino con exito', $sector], 200);
     }
 }
