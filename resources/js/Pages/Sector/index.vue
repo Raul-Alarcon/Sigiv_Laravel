@@ -3,6 +3,9 @@ import Modal from '@/Components/Modal.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { sector, services } from '@/models/Sectors';
 import { useForm } from '@inertiajs/vue3';
+import { FilterMatchMode } from '@primevue/core/api';
+import Column from 'primevue/column';
+import DataTable from 'primevue/datatable';
 import { useToast } from 'primevue/usetoast';
 import { ref } from 'vue';
 
@@ -19,11 +22,12 @@ const options = ref([
     { label: 'Enable', value: 'Enable' },
     { label: 'Disable', value: 'Disable' }
 ]);
+
 const selectionOption = ref({ label: 'Disable', value: 'Disable' });
 const loading = ref(false);
 const loadingButton = ref(false);
 const showModal = ref(false);
-const formSector = useForm({...sector});
+const formSector = useForm({ ...sector });
 const selectedSector = ref(null);
 
 const handlerEdit = (sector) => {
@@ -39,7 +43,7 @@ const handlerDelete = async (sector) => {
     const result = await services.delete(sector.id);
     console.log(result);
     loading.value = false;
-    window.location.reload();
+    // window.location.reload();
 }
 
 const handlerSelectedButton = () => {
@@ -51,7 +55,7 @@ const handlerChangeStatus = async (sector) => {
     const result = await services.updateStatus(sector.id);
     console.log(result);
     loading.value = false;
-    window.location.reload();
+    // window.location.reload();
 }
 
 const haddlerSubmit = async () => {
@@ -61,7 +65,7 @@ const haddlerSubmit = async () => {
         description: formSector.description,
         status: formSector.status
     }
-    if(selectedSector.value) {
+    if (selectedSector.value) {
         sector.id = selectedSector.value.id;
         const result = await services.update(sector);
         console.log(result);
@@ -69,7 +73,7 @@ const haddlerSubmit = async () => {
         selectedSector.value = null;
         formSector.reset();
         loadingButton.value = false;
-        window.location.reload();
+        // window.location.reload();
         return;
     }
     const result = await services.store(sector);
@@ -77,8 +81,14 @@ const haddlerSubmit = async () => {
     showModal.value = false;
     loadingButton.value = false;
     formSector.reset();
-    window.location.reload();
+    // window.location.reload();
 }
+
+const filters = ref({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    status: { value: null, matchMode: FilterMatchMode.EQUALS }
+});
 </script>
 
 <template>
@@ -110,39 +120,38 @@ const haddlerSubmit = async () => {
                 </div>
             </div>
             <div class="flex flex-col ">
-                <DataTable :value="sectors" row-hover :loading="loading" class="!rounded-l-3xl !text-blue-800">
-
+                <DataTable v-model:filters="filters" :value="sectors" paginator :rows="5" row-hover :loading="loading" class="!rounded-l-3xl !text-blue-800" :globalFilterFields="['name', 'status']">
                     <template #header>
                         <div class="mt-6 md:flex md:items-center md:justify-between mb-4">
                             <div
                                 class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
-
-
                                 <SelectButton v-model="selectionOption" :options="options" aria-labelledby="custom"
                                     option-label="label" data-key="value" allowEmpty :invalid="selectionOption === null"
                                     @change="handlerSelectedButton">
                                 </SelectButton>
-
                             </div>
-
                             <div class="relative flex items-center mt-4 md:mt-0">
-
                                 <IconField>
                                     <InputIcon>
                                         <i class="pi pi-search" />
                                     </InputIcon>
-                                 </IconField>
+                                    <InputText v-model="filters['global'].value" placeholder="Keyword Search"
+                                        class="md:w-96" />
+                                </IconField>
                             </div>
                         </div>
                     </template>
 
                     <template #empty>
-                        Aun no tienes registros de categorias que mostrar
+                        Aun no tienes registros de Sectores que mostrar
                     </template>
-                    <Column header="ID" field="id" sortable ></Column>
-                    <Column header="Name" field="name" sortable ></Column>
+                    <template #loading>
+                        Cargando...
+                    </template>
+                    <Column header="ID" field="id" sortable></Column>
+                    <Column header="Name" field="name" sortable style="min-width: 12rem"></Column>
                     <Column header="Description" field="description"></Column>
-                    <Column header="Status">
+                    <Column header="Status" field="status" :showFilterMenu="false" style="min-width: 12rem">
                         <template #body="{ data }">
                             <Tag :severity="(data.status ? 'succser' : 'danger')"
                                 :value="(data.status ? 'Active' : 'Inactive')"></Tag>
@@ -153,20 +162,20 @@ const haddlerSubmit = async () => {
                             <ToggleSwitch v-model="data.status" v-on:change="handlerChangeStatus(data)"></ToggleSwitch>
                         </template>
                     </Column>
-
                     <Column header="Actions" header-class="!flex !justify-center">
                         <template #body="{ data }">
                             <div class="flex justify-center space-x-3">
-                                <Button @click="handlerEdit(data)" icon="pi pi-pencil" rounded outlined aria-label="Edit">
+                                <Button @click="handlerEdit(data)" icon="pi pi-pencil" rounded outlined
+                                    aria-label="Edit">
                                 </Button>
-                                <Button @click="handlerDelete(data)" icon="pi pi-trash" severity="danger" rounded outlined aria-label="Delete">
+                                <Button @click="handlerDelete(data)" icon="pi pi-trash" severity="danger" rounded
+                                    outlined aria-label="Delete">
                                 </Button>
                             </div>
                         </template>
                     </Column>
                 </DataTable>
             </div>
-
             <Modal :show="showModal" @close="showModal = false" maxWidth="sm">
                 <div class="px-3 py-5 md:px-6 md:py-9 space-y-4">
 
@@ -187,8 +196,9 @@ const haddlerSubmit = async () => {
                             </label>
 
                             <label for="descriptionSector" class="flex flex-col-reverse">
-                                <Textarea v-model="formSector.description" placeholder="Description for sector" :rows="4">
-                                </Textarea>
+                                <Textarea v-model="formSector.description" placeholder="Description for sector"
+                                    :rows="4">
+                    </Textarea>
                                 <span class="font-semibold text-gray-600">Description</span>
                             </label>
 
