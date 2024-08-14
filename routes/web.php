@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SocialMediaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,6 +26,11 @@ Route::middleware([
 
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
+    Route::get('/socialmedia', [SocialMediaController::class, 'index'])->name('socialmedia.index');
+    Route::post('/socialmedia', [SocialMediaController::class, 'store'])->name('socialmedia.store');
+    Route::delete('/socialmedia/{Id}', [SocialMediaController::class, 'destroy'])->name('socialmedia.destroy');
+    Route::put('/socialmedia/{Id}', [SocialMediaController::class,'update'])->name('socialmedia.update');
 });
 
 
