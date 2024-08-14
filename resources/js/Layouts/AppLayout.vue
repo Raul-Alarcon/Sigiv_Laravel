@@ -21,7 +21,7 @@ const handlerDrawer = () => {
         <Head :title="title" />  
         <nav-bard @drawer-click="handlerDrawer"></nav-bard>
         <side-bard :visible="expandDrawer" @update:visible="handlerDrawer"> </side-bard> 
-        <main class="ml-6 md:ml-96 mt-16 mr-6 text-justify"> 
+        <main class="px-6 md:ml-80 mt-16 text-justify"> 
             <slot></slot>
         </main>
     </div>

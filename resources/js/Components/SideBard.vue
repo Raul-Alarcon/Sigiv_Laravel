@@ -25,7 +25,7 @@ const closeDrawer = () => {
 <template>
 
     <aside
-        class="fixed w-72 md:w-80 md:pt-16 md:ml-10 -translate-x-full  md:translate-x-0 transition-transform top-0 left-0 h-screen dark:border-r-2 dark:border-slate-700"
+        class="fixed w-72 md:w-80 md:pt-16 -translate-x-full  md:translate-x-0 transition-transform top-0 left-0 h-screen dark:border-r-2 dark:border-slate-700"
         :class="[
             visible ? 'translate-x-0 z-50' : ''
         ]" aria-label="Sidebar">

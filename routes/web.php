@@ -26,6 +26,7 @@ Route::middleware([
 
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    
     Route::get('/sectors', [SectorController::class, 'index'])->name('sectors.index');
     Route::patch('/sectors/{id}',[SectorController::class, 'changeStatus'])->name('sector.update.status');
     Route::post('/sectors', [SectorController::class, 'store'])->name('sector.store');

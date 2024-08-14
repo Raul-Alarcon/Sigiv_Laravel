@@ -9,7 +9,7 @@ const items = [
                     {
                         title: 'Sectores',
                         icon: 'pi pi-wave-pulse',
-                        link: 'categories.index'
+                        link: 'sectors.index'
                     }, 
                     {
                         title: 'Categorias',
