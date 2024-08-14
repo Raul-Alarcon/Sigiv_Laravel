@@ -9,32 +9,85 @@ import { useForm } from '@inertiajs/vue3'
 import { category, service } from '@/Services/CategoryService';
 
 
-defineProps({
-    categories: {
-        type: Array,
-        required: true
-    }
-});
+const categories = ref([]);
 
 const toast = getInstance(useToast());
 const options = ref([
     { label: 'Enable', value: 'Enable' },
     { label: 'Disable', value: 'Disable' }
 ]);
-const selectionOption = ref({ label: 'Disable', value: 'Disable' });
-const loading = ref(false);
+const selectionOption = ref({ label: 'Disable', value: 'Disable' }); 
 const showModal = ref(false)
+const loading = ref({
+    button: false
+});
 const form = useForm({
     ...category
 });
 
 
-const handlerEdit = (category) => {
-    toast.success('Edit category with id: ' + category.id);
-    console.log("Estamos editando la categoria con id: " + category.id);
+
+
+(async () => {
+    try {
+        let responce = await service.getAll();
+        categories.value = responce.data;
+    } catch (error) {
+        toast.error('Error loading categories');
+    }
+})();
+
+const handlerSwitchModal = () => {
+    showModal.value = !showModal.value;
+    form.reset();
 }
 
-const handlerDelete = (category) => {
+const handlerSwitchStatus = async (data) => {
+    try { 
+        await service.updateStatus(data.id)
+        toast.success('Category updated successfully');
+    } catch (error) {
+        const index = categories.value.findIndex(c => c.id === data.id)
+        const category = categories.value[index];
+        category.status = !category.status;
+        categories.value[index] = category;
+        toast.error('Error updating category');
+    }
+}
+
+const onSelecctionCategory = (data) => {
+    form.id = data.id;
+    form.name = data.name;
+    form.description = data.description; 
+    form.status = data.status;
+    showModal.value = true;
+}
+
+
+const handlerEdit = async () => {
+    try {
+        let category = service.ToModel(form); 
+        category = await service.update(category.id, category)
+        const index = categories.value.findIndex(c => c.id === category.id)
+        categories.value[index] = category;
+        toast.success('Category updated successfully');
+        showModal.value = false;
+        form.reset();
+    } catch (error) {
+        toast.error('Error updating category');
+        console.log(error);
+    }
+    
+}
+
+const handlerDelete = async (category) => {
+    try {
+        await service.delete(category.id)
+        categories.value = categories.value.filter(c => c.id !== category.id)
+        toast.success('Category deleted successfully');
+    } catch (error) {
+        toast.error('Error deleting category');
+    }
 }
 
 
@@ -42,12 +95,28 @@ const handlerSelectedButton = () => {
     console.log(selectionOption.value)
 }
 
-const handlerChangeStatus = (category) => {
-    // loading.value = true;
-    // setTimeout(() => {
-    //     toast.add({ severity: 'success', summary: 'Status', detail: 'Change status category with id: ' + category.id, life: 3000 });
-    //     loading.value = false;
-    // }, 3000);
+const handlerPost = async () => {
+    try {
+        let category = service.ToModel(form)
+        category =  await service.create(category)
+        categories.value.push(category)
+        toast.success('Category created successfully');  
+    } catch (error) {
+        toast.error('Error creating category');
+    }
+}
+
+const handlerSubmit = async () => { 
+    loading.value.button = true;
+    if(form.id > 0 ) {  
+        await handlerEdit();
+    }
+    else { 
+       await handlerPost(); 
+    }
+    showModal.value = false;
+    form.reset();
+    loading.value.button = false;
 }
 
 </script>
@@ -55,7 +124,7 @@ const handlerChangeStatus = (category) => {
 <template>
 
     <app-layout :title="'Categories'">
-        <Toast /> 
+        <Toast />
         <!-- component -->
         <div class=" px-4 mx-auto pt-7 md:pt-10">
             <div class="sm:flex sm:items-center sm:justify-between">
@@ -63,7 +132,7 @@ const handlerChangeStatus = (category) => {
                     <div class="flex items-center gap-x-3">
                         <h2 class="text-lg font-medium text-gray-800 dark:text-white">Categories</h2>
 
-                        <Tag severity="info" :value="`${(parseInt(categories.values.length) + 1)} Count`" rounded>
+                        <Tag severity="info" :value="`${categories.length} Count`" rounded>
                         </Tag>
 
                     </div>
@@ -74,16 +143,16 @@ const handlerChangeStatus = (category) => {
                 </div>
 
                 <div class="flex items-center mt-4 gap-x-3">
-                    <Button label="Export" @click="handlerEdit" icon="pi pi-cloud-upload" severity="contrast"
+                    <Button label="Export" icon="pi pi-cloud-upload" severity="contrast"
                         outlined="">
                     </Button>
 
-                    <Button label="Add Category" icon="pi pi-plus-circle" @click="showModal = true">
+                    <Button label="Add Category" icon="pi pi-plus-circle" @click="handlerSwitchModal">
                     </Button>
                 </div>
             </div>
             <div class="flex flex-col ">
-                <DataTable :value="categories" row-hover :loading="loading" class="!rounded-l-3xl !text-blue-800">
+                <DataTable :value="categories" row-hover class="!rounded-l-3xl !text-blue-800">
 
                     <template #header>
                         <div class="mt-6 md:flex md:items-center md:justify-between mb-4">
@@ -110,9 +179,6 @@ const handlerChangeStatus = (category) => {
                         </div>
                     </template>
 
-                    <template #empty>
-                        Aun no tienes registrs de categorias que mostrar
-                    </template>
                     <Column header="ID" field="id"></Column>
                     <Column header="Name" field="name"></Column>
                     <Column header="Description" field="description"></Column>
@@ -124,16 +190,16 @@ const handlerChangeStatus = (category) => {
                     </Column>
                     <Column header="Switch">
                         <template #body="{ data }">
-                            <ToggleSwitch v-model="data.status" v-on:change="handlerChangeStatus(data)"></ToggleSwitch>
+                            <ToggleSwitch v-model="data.status" v-on:change="handlerSwitchStatus(data)"></ToggleSwitch>
                         </template>
                     </Column>
 
                     <Column header="Actions" header-class="!flex !justify-center">
                         <template #body="{ data }">
                             <div class="flex justify-center space-x-3">
-                                <Button icon="pi pi-pencil" rounded outlined aria-label="Edit">
+                                <Button @click="onSelecctionCategory(data)" icon="pi pi-pencil" rounded outlined aria-label="Edit">
                                 </Button>
-                                <Button icon="pi pi-trash" severity="danger" rounded outlined aria-label="Delete">
+                                <Button @click="handlerDelete(data)" icon="pi pi-trash" severity="danger" rounded outlined aria-label="Delete">
                                 </Button>
                             </div>
                         </template>
@@ -152,7 +218,7 @@ const handlerChangeStatus = (category) => {
 
                     </div>
 
-                    <form @submit.prevent="service.create">
+                    <form @submit.prevent="handlerSubmit">
                         <div class="grid gap-4">
                             <label for="nameCategory" class="flex flex-col-reverse">
                                 <InputText v-model="form.name" id="nameCategory" placeholder="Name for category">
@@ -168,7 +234,7 @@ const handlerChangeStatus = (category) => {
 
                             <div class="flex justify-between space-x-4 items-center">
                                 <ToggleSwitch v-model="form.status"></ToggleSwitch>
-                                <Button label="Save" type="submit" icon="pi pi-save"></Button>
+                                <Button label="Save" type="submit" :loading="loading.button" icon="pi pi-save"></Button>
                             </div>
                         </div>
                     </form>

@@ -2,22 +2,30 @@
 
 namespace App\Services;
 use App\Models\Category;
+use Illuminate\Validation\Rules\In;
 
 class CategoryService
 { 
-    public function index()
+    public function getAll(Int $limit = 10)
     {
-        return Category::all();
+        return Category::paginate($limit);
     }
 
-    public function store($request)
+    public function create($request)
     {
         return Category::create($request->all());
     }
 
-    public function show($id)
+    public function findById($id)
     {
         return Category::find($id);
+    }
+
+    public function updateStatus($id)
+    {
+        $category = Category::find($id);
+        $category->status = !$category->status;
+        $category->update(); 
     }
 
     public function update($request, $id)

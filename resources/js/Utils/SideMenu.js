@@ -14,7 +14,7 @@ const items = [
                     {
                         title: 'Categorias',
                         icon: 'pi pi-wave-pulse',
-                        link: 'categories.index'
+                        link: 'categories.page'
                     }, 
                 ]
             },

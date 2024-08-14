@@ -15,58 +15,31 @@ class CategoryController extends Controller
     }
 
     public function index(){
-        $categories = $this->categoryService->index();
+        $data = $this->categoryService->getAll();
+        return response()->json($data, 200); 
+    }  
 
-        return Inertia::render('Category/index', [
-            'categories' => $categories
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $data = $this->categoryService->create($request);
+        return response()->json($data, 201);
+    } 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $this->categoryService->update($request, $id);
+        return response()->json($data, 200);
+    } 
+
+    public function updateStatus(string $id)
+    {
+        $this->categoryService->updateStatus($id);
+        return response()->json(null, 204);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $this->categoryService->destroy($id);
+        return response()->json(null, 204);
     }
 }

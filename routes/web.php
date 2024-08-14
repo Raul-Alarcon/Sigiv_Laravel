@@ -26,7 +26,10 @@ Route::middleware([
     })->name('dashboard');
 
 
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/categories', function () { return Inertia::render('Category/index'); })->name('categories.page'); 
+    });
+
 
     Route::get('/socialmedia', [SocialMediaController::class, 'index'])->name('socialmedia.index');
     Route::post('/socialmedia', [SocialMediaController::class, 'store'])->name('socialmedia.store');
