@@ -5,6 +5,9 @@
 [x-cloak] {
     display: none;
 }
+.transition-size {
+    transition: width 0.4s ease-in-out, height 0.5s ease-in-out;
+}
 
 .p-datatable-header {
     background-color: transparent !important;
@@ -13,15 +16,22 @@
     padding-right: 0 !important;
 }
 
- 
+body {
+    background-color: rgb(249 250 251 / 1);
+} 
 @media (prefers-color-scheme: dark) {
     .p-datatable-thead > tr > th {
         --tw-bg-opacity: 1;
         background-color: rgb(31 41 55 / var(--tw-bg-opacity)) !important;
-        
+    }
+
+    body { 
+        background-color: rgb(15 23 42 / 1) !important;
+        /* background-color: rgb(15 23 42 / var(1)) !important; */
     }
     
 }
+ 
 
 .p-datatable-thead>tr>th:first-child {
     border-top-left-radius: 0.5rem !important;
@@ -47,4 +57,33 @@
     -tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+} */
+ 
+/* 
+.animate-slidedown-enter-active{
+    transition: all 0.3s;
+    max-height: 500px;
+}
+
+.animate-slidedown-enter-to{
+    max-height: 500px;
+}
+
+.animate-slidedown-leave-active{
+    transition: all 0.3s;
+    max-height: 0;
+}
+
+.animate-slideup-enter-active{
+    transition: all 0.3s;
+    max-height: 500px;
+}
+
+.animate-slideup-enter-to{
+    max-height: 500px;
+}
+
+.animate-slideup-leave-active{
+    transition: all 0.3s;
+    max-height: 0;
 } */

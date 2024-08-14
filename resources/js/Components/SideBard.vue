@@ -1,5 +1,7 @@
 <script setup>
 import { ref, watch, defineProps, defineEmits } from 'vue';
+import { Link, router } from '@inertiajs/vue3';
+import { items } from '@/Utils/SideMenu'; 
 
 const props = defineProps({
     visible: Boolean
@@ -7,18 +9,91 @@ const props = defineProps({
 
 const emit = defineEmits(['update:visible']);
 
+const visible = ref(props.visible);
+
 watch(() => props.visible, (newValue) => {
     visible.value = newValue;
 });
 
-const visible = ref(props.visible);
 
 const closeDrawer = () => {
     emit('update:visible', false);
 };
+
+
 </script>
 <template>
-    <Drawer :visible="visible" @update:visible="emit('update:visible', $event)">
+
+    <aside
+        class="fixed w-72 md:w-80 md:pt-16 md:ml-10 -translate-x-full  md:translate-x-0 transition-transform top-0 left-0 h-screen"
+        :class="[
+            visible ? 'translate-x-0 z-50' : ''
+        ]" aria-label="Sidebar">
+
+
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-slate-900">
+            <span class="md:hidden flex w-full justify-between items-center px-2 py-3">
+                <h2 class="text-2xl font-semibold text-gray-700">SIGIV</h2>
+                <span>
+                    <Button icon="pi pi-times" outlined severity="contrast" @click="closeDrawer">
+                    </Button>
+                </span>
+            </span>
+
+
+
+            <ul class="flex flex-col w-full h-full gap-2 flex-nowrap pb-7">
+                <li v-for="(group, index) in items" :key="index" class="px-0">
+                    <span v-ripple
+                        class="flex font-medium text-xs cursor-pointer text-gray-400 my-4 uppercase overflow-clip px-3">{{
+                            group.title }}</span>
+                    <ul v-if="group.items.length > 0" class="overflow-hidden">
+                        <li v-for="(item, x) in group.items" :key="x" class="px-0 mx-0">
+
+                            <!-- Links -->
+                            <Link v-if="!item.subItems" v-ripple :href="route(`${item.link}`)"
+                                class="flex flex-row flex-nowrap items-center h-12 px-3 rounded-lg text-gray-500 hover:bg-slate-200 dark:hover:bg-gray-700 ">
+                                <i :class="item.icon" style="font-size: 1.3rem;"></i>
+                                <span class="ml-3 text-nowrap">{{ item.title }}</span>
+                            </Link>
+
+
+                            <span v-if="item.subItems" v-ripple v-styleclass="{
+                                selector: '@next',
+                                enterFromClass: 'hidden',
+                                enterActiveClass: 'animate-slidedown',
+                                leaveToClass: 'hidden',
+                                leaveActiveClass: 'animate-slideup'
+                            }"
+                                class="flex flex-row items-center h-12 px-3 overflow-hidden rounded-lg text-gray-500 hover:bg-slate-200 dark:hover:bg-gray-700 cursor-pointer">
+                                <i :class="item.icon" style="font-size: 1.3rem;"></i>
+                                <span class="ml-3 text-nowrap">{{ item.title }}</span>
+                                <span
+                                    class="flex items-center justify-center text-sm text-gray-500 font-semibol h-6 px-2 cursor-pointer rounded-full ml-auto">
+                                    <i class="pi pi-angle-down" style="font-size: 1.2rem;"></i>
+                                </span>
+                            </span>
+
+                            <ul v-if="item.subItems" class="overflow-hidden">
+                                <li v-for="(subItem, y) in item.subItems" :key="y">
+
+
+                                    <Link v-ripple :href="route(`${subItem.link}`)"
+                                        class="flex flex-row items-center h-12 pl-7 rounded-lg text-gray-500 hover:bg-slate-200 dark:hover:bg-gray-700">
+
+                                        <i :class="subItem.icon" style="font-size: 1.3rem;"></i>
+                                        <span class="ml-3 text-nowrap">{{ subItem.title }}</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>  
+        </div>
+    </aside>
+
+    <!-- <Drawer :visible="visible" @update:visible="emit('update:visible', $event)"  >
         <template #container="{ closeCallback }">
             <div class="flex flex-col h-full">
                 <div class="flex items-center justify-between px-6 pt-4 shrink-0">
@@ -34,7 +109,7 @@ const closeDrawer = () => {
                         <span class="font-semibold text-2xl text-primary">Your Logo</span>
                     </span>
                     <span>
-                        <Button type="button" @click="closeDrawer" icon="pi pi-times" rounded outlined></Button>
+                        <Button type="button" @click="closeCallback" icon="pi pi-times" rounded outlined></Button>
                     </span>
                 </div>
                 <div class="overflow-y-auto">
@@ -205,5 +280,5 @@ const closeDrawer = () => {
                 </div>
             </div>
         </template>
-    </Drawer>
+</Drawer> -->
 </template>

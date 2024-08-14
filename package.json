@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "@primevue/themes": "^4.0.3",
+        "@vueuse/motion": "^2.2.3",
         "primeicons": "^7.0.0",
         "primevue": "^4.0.3",
         "tailwindcss-primeui": "^0.3.4"
