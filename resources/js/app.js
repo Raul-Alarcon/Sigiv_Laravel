@@ -9,8 +9,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { custon_presets } from './theme';
-import ToastService from 'primevue/toastservice';
-import { MotionPlugin } from '@vueuse/motion'
+import ToastService from 'primevue/toastservice'; 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'; 
 
@@ -28,8 +27,7 @@ createInertiaApp({
                     options : {
                         darkModeSelector: 'system',
                     }
-            }})
-            .use(MotionPlugin)
+            }}) 
             .use(ZiggyVue)
             .mount(el);
     },
