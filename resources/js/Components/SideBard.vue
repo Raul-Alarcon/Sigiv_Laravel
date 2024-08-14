@@ -25,7 +25,7 @@ const closeDrawer = () => {
 <template>
 
     <aside
-        class="fixed w-72 md:w-80 md:pt-16 md:ml-10 -translate-x-full  md:translate-x-0 transition-transform top-0 left-0 h-screen"
+        class="fixed w-72 md:w-80 md:pt-16 md:ml-10 -translate-x-full  md:translate-x-0 transition-transform top-0 left-0 h-screen dark:border-r-2 dark:border-slate-700"
         :class="[
             visible ? 'translate-x-0 z-50' : ''
         ]" aria-label="Sidebar">
@@ -44,20 +44,24 @@ const closeDrawer = () => {
 
             <ul class="flex flex-col w-full h-full gap-2 flex-nowrap pb-7">
                 <li v-for="(group, index) in items" :key="index" class="px-0">
+
+                    <!-- Single Item -->
                     <span v-ripple
-                        class="flex font-medium text-xs cursor-pointer text-gray-400 my-4 uppercase overflow-clip px-3">{{
+                        class="flex font-medium text-xs cursor-pointer text-gray-600 dark:text-gray-300 my-4 uppercase overflow-clip px-3">{{
                             group.title }}</span>
                     <ul v-if="group.items.length > 0" class="overflow-hidden">
                         <li v-for="(item, x) in group.items" :key="x" class="px-0 mx-0">
 
                             <!-- Links -->
                             <Link v-if="!item.subItems" v-ripple :href="route(`${item.link}`)"
-                                class="flex flex-row flex-nowrap items-center h-12 px-3 rounded-lg text-gray-500 hover:bg-slate-200 dark:hover:bg-gray-700 ">
+                                class="flex flex-row flex-nowrap items-center h-12 px-3 rounded-lg 
+                                text-gray-700 dark:text-white hover:bg-slate-200 dark:hover:bg-gray-700 ">
                                 <i :class="item.icon" style="font-size: 1.3rem;"></i>
                                 <span class="ml-3 text-nowrap">{{ item.title }}</span>
                             </Link>
 
 
+                            <!-- Multiple item -->
                             <span v-if="item.subItems" v-ripple v-styleclass="{
                                 selector: '@next',
                                 enterFromClass: 'hidden',
@@ -65,11 +69,11 @@ const closeDrawer = () => {
                                 leaveToClass: 'hidden',
                                 leaveActiveClass: 'animate-slideup'
                             }"
-                                class="flex flex-row items-center h-12 px-3 overflow-hidden rounded-lg text-gray-500 hover:bg-slate-200 dark:hover:bg-gray-700 cursor-pointer">
+                                class="flex flex-row items-center h-12 px-3 overflow-hidden rounded-lg dark:text-white hover:bg-slate-200 dark:hover:bg-gray-700 cursor-pointer">
                                 <i :class="item.icon" style="font-size: 1.3rem;"></i>
                                 <span class="ml-3 text-nowrap">{{ item.title }}</span>
                                 <span
-                                    class="flex items-center justify-center text-sm text-gray-500 font-semibol h-6 px-2 cursor-pointer rounded-full ml-auto">
+                                    class="flex items-center justify-center text-sm text-gray-700 dark:text-gray-200 font-semibol h-6 px-2 cursor-pointer rounded-full ml-auto  active:rotate-90">
                                     <i class="pi pi-angle-down" style="font-size: 1.2rem;"></i>
                                 </span>
                             </span>
@@ -79,7 +83,7 @@ const closeDrawer = () => {
 
 
                                     <Link v-ripple :href="route(`${subItem.link}`)"
-                                        class="flex flex-row items-center h-12 pl-7 rounded-lg text-gray-500 hover:bg-slate-200 dark:hover:bg-gray-700">
+                                        class="flex flex-row items-center h-12 pl-7 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-gray-700">
 
                                         <i :class="subItem.icon" style="font-size: 1.3rem;"></i>
                                         <span class="ml-3 text-nowrap">{{ subItem.title }}</span>

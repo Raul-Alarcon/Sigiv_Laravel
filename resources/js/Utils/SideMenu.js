@@ -5,7 +5,12 @@ const items = [
             {
                 title: 'Catalogos',
                 icon: 'pi pi-th-large', 
-                subItems: [
+                subItems: [ 
+                    {
+                        title: 'Sectores',
+                        icon: 'pi pi-wave-pulse',
+                        link: 'categories.index'
+                    }, 
                     {
                         title: 'Categorias',
                         icon: 'pi pi-wave-pulse',

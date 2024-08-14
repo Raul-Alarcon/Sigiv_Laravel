@@ -34,7 +34,7 @@ const handlerEdit = (category) => {
     console.log("Estamos editando la categoria con id: " + category.id);
 }
 
-const handlerDelete = (category) => { 
+const handlerDelete = (category) => {
 }
 
 
@@ -55,10 +55,9 @@ const handlerChangeStatus = (category) => {
 <template>
 
     <app-layout :title="'Categories'">
-        <Toast />
-
+        <Toast /> 
         <!-- component -->
-        <section class="container px-4 mx-auto pt-7 md:pt-10">
+        <div class=" px-4 mx-auto pt-7 md:pt-10">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex items-center gap-x-3">
@@ -75,7 +74,8 @@ const handlerChangeStatus = (category) => {
                 </div>
 
                 <div class="flex items-center mt-4 gap-x-3">
-                    <Button label="Export" @click="handlerEdit" icon="pi pi-cloud-upload" severity="contrast" outlined="">
+                    <Button label="Export" @click="handlerEdit" icon="pi pi-cloud-upload" severity="contrast"
+                        outlined="">
                     </Button>
 
                     <Button label="Add Category" icon="pi pi-plus-circle" @click="showModal = true">
@@ -171,9 +171,9 @@ const handlerChangeStatus = (category) => {
                                 <Button label="Save" type="submit" icon="pi pi-save"></Button>
                             </div>
                         </div>
-                    </form> 
+                    </form>
                 </div>
-            </Modal> 
-        </section>
+            </Modal>
+        </div>
     </app-layout>
 </template>
