@@ -31,6 +31,9 @@ Route::middleware([
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/categories', function () { return Inertia::render('Category/index'); })->name('categories.page');
     });
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/generes', function () { return Inertia::render('Gender/index'); })->name('generes.page');
+    });
 
 
     Route::get('/socialmedia', [SocialMediaController::class, 'index'])->name('socialmedia.index');
@@ -48,11 +51,6 @@ Route::middleware([
     Route::post('/charges', [ChargeController::class, 'store'])->name('charges.store');
     Route::delete('/charges/{Id}', [ChargeController::class, 'destroy'])->name('charges.destroy');
     Route::put('/charges/{Id}', [ChargeController::class,'update'])->name('charges.update');
-
-    Route::get('/gender', [ChargeController::class,'index'])->name('gender.index');
-    Route::post('/gender', [ChargeController::class,'store'])->name('gender.store');
-    Route::delete('/gender/{Id}', [ChargeController::class, 'destroy'])->name('gender.destroy');
-    Route::put('/gender/{Id}', [ChargeController::class,'update'])->name('gender.update');
 });
 
 

@@ -2,14 +2,13 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { ref } from 'vue';
 
-import { getInstance } from '@/Utils/Toast';
-import { useToast } from 'primevue/usetoast';
 import Modal from '@/Components/Modal.vue';
-import { useForm } from '@inertiajs/vue3'
-import { category, service } from '@/Services/CategoryService';
+import { gender, service } from '@/Services/GeneresService';
+import { getInstance } from '@/Utils/Toast';
+import { useForm } from '@inertiajs/vue3';
+import { useToast } from 'primevue/usetoast';
 
-
-const categories = ref([]);
+const genres = ref([]);
 
 const toast = getInstance(useToast());
 const options = ref([
@@ -21,19 +20,17 @@ const showModal = ref(false)
 const loading = ref({
     button: false
 });
+
 const form = useForm({
-    ...category
+    ...gender
 });
 
-
-
-
-(async () => {
+(async() => {
     try {
         let responce = await service.getAll();
-        categories.value = responce.data;
+        genres.value = responce.data;
     } catch (error) {
-        toast.error('Error loading categories');
+        toast.error('Error loading genres');
     }
 })();
 
@@ -45,20 +42,19 @@ const handlerSwitchModal = () => {
 const handlerSwitchStatus = async (data) => {
     try {
         await service.updateStatus(data.id)
-        toast.success('Category updated successfully');
+        toast.success('Gender updated successfully');
     } catch (error) {
-        const index = categories.value.findIndex(c => c.id === data.id)
-        const category = categories.value[index];
-        category.status = !category.status;
-        categories.value[index] = category;
-        toast.error('Error updating category');
+        const index = genres.value.findIndex(c => c.id === data.id)
+        const gender = genres.value[index];
+        gender.status = !gender.status;
+        genres.value[index] = gender;
+        toast.error('Error updating gender');
     }
 }
 
-const onSelecctionCategory = (data) => {
+const onSelecctionGender = (data) => {
     form.id = data.id;
     form.name = data.name;
-    form.description = data.description;
     form.status = data.status;
     showModal.value = true;
 }
@@ -66,27 +62,27 @@ const onSelecctionCategory = (data) => {
 
 const handlerEdit = async () => {
     try {
-        let category = service.ToModel(form);
-        category = await service.update(category.id, category)
-        const index = categories.value.findIndex(c => c.id === category.id)
-        categories.value[index] = category;
-        toast.success('Category updated successfully');
+        let gender = service.ToModel(form);
+        gender = await service.update(gender.id, gender)
+        const index = genres.value.findIndex(c => c.id === gender.id)
+        genres.value[index] = gender;
+        toast.success('Gender updated successfully');
         showModal.value = false;
         form.reset();
     } catch (error) {
-        toast.error('Error updating category');
+        toast.error('Error updating gender');
         console.log(error);
     }
 
 }
 
-const handlerDelete = async (category) => {
+const handlerDelete = async (gender) => {
     try {
-        await service.delete(category.id)
-        categories.value = categories.value.filter(c => c.id !== category.id)
-        toast.success('Category deleted successfully');
+        await service.delete(gender.id)
+        genres.value = genres.value.filter(c => c.id !== gender.id)
+        toast.success('Gender deleted successfully');
     } catch (error) {
-        toast.error('Error deleting category');
+        toast.error('Error deleting gender');
     }
 }
 
@@ -97,12 +93,12 @@ const handlerSelectedButton = () => {
 
 const handlerPost = async () => {
     try {
-        let category = service.ToModel(form)
-        category =  await service.create(category)
-        categories.value.push(category)
-        toast.success('Category created successfully');
+        let gender = service.ToModel(form)
+        gender =  await service.create(gender)
+        genres.value.push(gender)
+        toast.success('Gender created successfully');
     } catch (error) {
-        toast.error('Error creating category');
+        toast.error('Error creating gender');
     }
 }
 
@@ -120,19 +116,17 @@ const handlerSubmit = async () => {
 }
 
 </script>
-
 <template>
-
-    <app-layout :title="'Categories'">
+    <app-layout :title="'Genres'">
         <Toast />
         <!-- component -->
         <div class=" px-4 mx-auto pt-7 md:pt-10">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex items-center gap-x-3">
-                        <h2 class="text-lg font-medium text-gray-800 dark:text-white">Categories</h2>
+                        <h2 class="text-lg font-medium text-gray-800 dark:text-white">Genres</h2>
 
-                        <Tag severity="info" :value="`${categories.length} Count`" rounded>
+                        <Tag severity="info" :value="`${genres.length} Count`" rounded>
                         </Tag>
 
                     </div>
@@ -147,12 +141,12 @@ const handlerSubmit = async () => {
                         outlined="">
                     </Button>
 
-                    <Button label="Add Category" icon="pi pi-plus-circle" @click="handlerSwitchModal">
+                    <Button label="Add Gender" icon="pi pi-plus-circle" @click="handlerSwitchModal">
                     </Button>
                 </div>
             </div>
             <div class="flex flex-col ">
-                <DataTable :value="categories" row-hover class="!rounded-l-3xl !text-blue-800">
+                <DataTable :value="genres" row-hover class="!rounded-l-3xl !text-blue-800">
 
                     <template #header>
                         <div class="mt-6 md:flex md:items-center md:justify-between mb-4">
@@ -181,7 +175,6 @@ const handlerSubmit = async () => {
 
                     <Column header="ID" field="id"></Column>
                     <Column header="Name" field="name"></Column>
-                    <Column header="Description" field="description"></Column>
                     <Column header="Status">
                         <template #body="{ data }">
                             <Tag :severity="(data.status ? 'succser' : 'danger')"
@@ -197,7 +190,7 @@ const handlerSubmit = async () => {
                     <Column header="Actions" header-class="!flex !justify-center">
                         <template #body="{ data }">
                             <div class="flex justify-center space-x-3">
-                                <Button @click="onSelecctionCategory(data)" icon="pi pi-pencil" rounded outlined aria-label="Edit">
+                                <Button @click="onSelecctionGender(data)" icon="pi pi-pencil" rounded outlined aria-label="Edit">
                                 </Button>
                                 <Button @click="handlerDelete(data)" icon="pi pi-trash" severity="danger" rounded outlined aria-label="Delete">
                                 </Button>
@@ -211,7 +204,7 @@ const handlerSubmit = async () => {
                 <div class="px-3 py-5 md:px-6 md:py-9 space-y-4">
 
                     <div class="flex justify-between items-center">
-                        <h2 class="font-semibold text-lg uppercase">Category Form</h2>
+                        <h2 class="font-semibold text-lg uppercase">Gender Form</h2>
 
                         <Button icon="pi pi-times" outlined severity="secondary" @click="showModal = false">
                         </Button>
@@ -220,16 +213,10 @@ const handlerSubmit = async () => {
 
                     <form @submit.prevent="handlerSubmit">
                         <div class="grid gap-4">
-                            <label for="nameCategory" class="flex flex-col-reverse">
-                                <InputText v-model="form.name" id="nameCategory" placeholder="Name for category">
+                            <label for="nameGender" class="flex flex-col-reverse">
+                                <InputText v-model="form.name" id="nameGender" placeholder="Name for Gender">
                                 </InputText>
                                 <span class="font-semibold text-gray-600">Name</span>
-                            </label>
-
-                            <label for="descriptionCategory" class="flex flex-col-reverse">
-                                <Textarea v-model="form.description" placeholder="Description for category"
-                                    :rows="4"></Textarea>
-                                <span class="font-semibold text-gray-600">Description</span>
                             </label>
 
                             <div class="flex justify-between space-x-4 items-center">
