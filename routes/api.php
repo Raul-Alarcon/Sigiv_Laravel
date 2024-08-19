@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChargeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,12 @@ Route::controller(CategoryController::class)->group(function () {
     Route::delete('/categories/{id}', 'destroy')->name('categories.destroy');
     Route::put('/categories/{id}', 'update')->name('categories.update');
     Route::patch('/categories/{id}', 'updateStatus')->name('categories.update.status');
+});
+
+
+Route::controller(ChargeController::class)->group(function () {
+    Route::get('/charges', 'index')->name('charges.index');
+    Route::post('/charges','store')->name('charges.store');
+    Route::delete('/charges/{Id}', 'destroy')->name('charges.destroy');
+    Route::put('/charges/{Id}', 'update')->name('charges.update');
 });

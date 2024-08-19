@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SocialMediaController;
-use App\Http\Controllers\SectorController;
-use App\Http\Controllers\ChargeController;
+use App\Http\Controllers\SectorController; 
 use App\Http\Controllers\GenderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +26,7 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::get('/Charge', function () { return Inertia::render('Charge/index'); })->name('charge.page'); 
 
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/categories', function () { return Inertia::render('Category/index'); })->name('categories.page'); 
@@ -44,10 +44,7 @@ Route::middleware([
     Route::delete('/sectors/{id}', [SectorController::class, 'destroy'])->name('sector.destroy');
     Route::put('/sectors/{idSector}', [SectorController::class, 'update'])->name('sector.update');
 
-    Route::get('/charges', [ChargeController::class, 'index'])->name('charges.index');
-    Route::post('/charges', [ChargeController::class, 'store'])->name('charges.store');
-    Route::delete('/charges/{Id}', [ChargeController::class, 'destroy'])->name('charges.destroy');
-    Route::put('/charges/{Id}', [ChargeController::class,'update'])->name('charges.update');
+
 
     Route::get('/gender', [ChargeController::class,'index'])->name('gender.index');
     Route::post('/gender', [ChargeController::class,'store'])->name('gender.store');

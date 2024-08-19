@@ -15,6 +15,11 @@ const items = [
                         title: 'Categorias',
                         icon: 'pi pi-wave-pulse',
                         link: 'categories.page'
+                    },
+                    {
+                        title: 'Cargos',
+                        icon: 'pi pi-wave-pulse',
+                        link: 'charge.page'
                     }, 
                 ]
             },
