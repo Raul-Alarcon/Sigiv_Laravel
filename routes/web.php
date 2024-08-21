@@ -46,10 +46,10 @@ Route::middleware([
 
 
 
-    Route::get('/gender', [ChargeController::class,'index'])->name('gender.index');
-    Route::post('/gender', [ChargeController::class,'store'])->name('gender.store');
-    Route::delete('/gender/{Id}', [ChargeController::class, 'destroy'])->name('gender.destroy');
-    Route::put('/gender/{Id}', [ChargeController::class,'update'])->name('gender.update');
+    // Route::get('/gender', [ChargeController::class,'index'])->name('gender.index');
+    // Route::post('/gender', [ChargeController::class,'store'])->name('gender.store');
+    // Route::delete('/gender/{Id}', [ChargeController::class, 'destroy'])->name('gender.destroy');
+    // Route::put('/gender/{Id}', [ChargeController::class,'update'])->name('gender.update');
 });
 
 

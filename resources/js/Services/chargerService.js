@@ -18,7 +18,7 @@ service.ToModel  = (form) => {
 service.getAll = async () => { 
     let responce = await axios.get('/api/charges')
     if(responce.status != 200) throw new Error('Error al cargar las cargoss')
-    let paginationData = responce.data
+    let paginationData = responce.data 
     return paginationData
 }
 

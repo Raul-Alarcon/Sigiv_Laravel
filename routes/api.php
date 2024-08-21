@@ -22,6 +22,7 @@ Route::controller(CategoryController::class)->group(function () {
 Route::controller(ChargeController::class)->group(function () {
     Route::get('/charges', 'index')->name('charges.index');
     Route::post('/charges','store')->name('charges.store');
-    Route::delete('/charges/{Id}', 'destroy')->name('charges.destroy');
-    Route::put('/charges/{Id}', 'update')->name('charges.update');
+    Route::delete('/charges/{id}', 'destroy')->name('charges.destroy');
+    Route::put('/charges/{id}', 'update')->name('charges.update');
+    Route::patch('/charges/{id}', 'updateStatus')->name('charges.update.status');
 });
