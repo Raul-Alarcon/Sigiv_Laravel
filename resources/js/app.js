@@ -6,6 +6,7 @@ import '../css/app.css';
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';

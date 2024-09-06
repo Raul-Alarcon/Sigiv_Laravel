@@ -15,11 +15,10 @@ const isCollapse = ref(true)
 <template>
 
     <div>
-        <el-container style="height: 100vh">
-
+        <el-container style="height: 100vh"> 
             <Head :title="title" />
 
-            <aside class="min-h-screen bg-white ">
+            <aside class="min-h-screen">
                 <el-menu :collapse="isCollapse" class="el-menu-vertical-demo h-full w-72" default-active="2">
                     <el-sub-menu index="1">
                         <template #title>
@@ -59,12 +58,22 @@ const isCollapse = ref(true)
 
                     <div class="text-center">
                         <el-button v-on:click="isCollapse = !isCollapse"> Drawer</el-button>
+                        <!-- <el-button type="primary" v-on:click="isCollapse = !isCollapse"> Drawer</el-button> -->
+
+<!-- 
+                        <div class="bg-dark-background">
+                            <h2 class="dark:text-dark-text" >Welcome to the my app</h2>
+                        </div> -->
+
                     </div>
 
                     <slot></slot>
+
                 </el-main>
             </el-container>
         </el-container>
+
+        
     </div>
 
 
@@ -72,7 +81,7 @@ const isCollapse = ref(true)
 
 <style>
 /* Dark mode styles */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     .el-menu-vertical-demo {  
         border-right: none;
     }
@@ -88,8 +97,7 @@ const isCollapse = ref(true)
     .el-menu-vertical-demo .el-sub-menu__title,
     .el-menu--popup-container>ul,
     .el-menu-vertical-demo .el-sub-menu .el-menu-item {
-        background-color: #333;
-        /* Dark mode background color */
+        background-color: #333; 
     }
  
     .el-menu-vertical-demo .el-menu-item,
@@ -109,9 +117,11 @@ const isCollapse = ref(true)
 
     .el-menu--popup-container  {
         background-color: blue;
-        border-color: #ffd04b;
-        /* Dark mode background color */
+        border-color: #ffd04b; 
     }
  
-}
+} */
+
+
+ 
 </style>
