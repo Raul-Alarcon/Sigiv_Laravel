@@ -4,86 +4,167 @@
 
 [x-cloak] {
     display: none;
-}
-.transition-size {
-    transition: width 0.4s ease-in-out, height 0.5s ease-in-out;
-}
+} 
 
-.p-datatable-header {
-    background-color: transparent !important;
-    border-bottom: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+:root {
+    /* --background-gradient:-webkit-linear-gradient(90deg, #1f2533,#151922);Chrome 10-25, Safari 5.1-6                          background: linear-gradient(90deg, #1f2533,#151922);W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+       */ 
+    --background-gradient: linear-gradient(90deg, #1f2533, #151922);
+    --background-gradient-webkit: -webkit-linear-gradient(90deg, #1f2533, #151922);
+
+    --dark-primary-table : #10151B;
+    --dark-table-hover : #1A2028;
 }
 
 body {
-    background-color: rgb(249 250 251 / 1);
-} 
-@media (prefers-color-scheme: dark) {
-    .p-datatable-thead > tr > th {
-        --tw-bg-opacity: 1;
-        background-color: rgb(31 41 55 / var(--tw-bg-opacity)) !important;
-    }
+    background-color: rgb(243 244 246 / 1)
+}
 
-    body { 
-        background-color: rgb(15 23 42 / 1) !important;
-        /* background-color: rgb(15 23 42 / var(1)) !important; */
+.el-table table{
+    border-collapse: separate;
+    border-spacing: 0 7px;
+    background-color: transparent !important; /* Fondo de las filas */
+}
+
+/* .el-table-v2 .el-table-v2__header-wrapper {  
+    margin-bottom: 0.7rem;
+} */
+
+.el-table-v2 .el-table-v2__header .el-table-v2__header-row { 
+    border: none;
+}
+
+.el-table-v2 .el-table-v2__body .el-table-v2__row {
+    margin-bottom: 0.5rem;
+}
+
+.el-table, 
+.el-table-v2 .el-table-v2__body, 
+.el-table-v2 .el-table-v2__header, 
+.el-table-v2 .el-table-v2__table {
+    background-color: transparent !important; /* Fondo de la tabla */
+}
+
+ 
+ 
+.el-table th, 
+.el-table-v2 .el-table-v2__header .el-table-v2__header-cell {
+    background: transparent !important; /* Fondo degradado semitransparente */
+    backdrop-filter: blur(10px); /* Aplicar el efecto blur */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
+    color: #5f626b !important; /* Texto claro */
+    font-weight: bold; /* Negrita en el texto del encabezado */
+    border: none !important;
+    margin-bottom: 0 !important;
+}
+
+.el-table-v2 .el-table-v2__table .el-table-v2__body .el-table-v2__row {
+    border: none !important; 
+}
+
+.el-table thead tr{
+    background-color: transparent !important; /* Fondo de las filas */
+}
+ 
+ /* Modo oscuro (cuando Tailwind añade la clase "dark") */
+.dark body { 
+    background: var(--background-gradient-webkit); /* Soporte para WebKit */
+    background: var(--background-gradient); /* Soporte general */                                     
+}
+
+ 
+.dark .el-menu-vertical-demo {
+    background-color: #232A3A; /* Fondo del navbar */
+}
+ 
+ 
+.el-table tbody {
+    background-color: transparent !important; /* Fondo de las filas */
+}
+ 
+.el-table td {
+    border: none !important; 
+
+}
+
+.dark .el-table td  {
+    background-color: #10151B !important; /* Fondo oscuro en el encabezado */ 
+}
+
+/* Efecto hover */
+.dark .el-table tr:hover td, 
+.dark .el-table-v2 .el-table-v2__table .el-table-v2__body .el-table-v2__row:hover {
+    background-color: var(--dark-table-hover) !important; /* Fondo más claro para hover */
+    color: #E5E7EB !important; /* Texto claro para mejor visibilidad */
+}
+
+
+.el-table td:first-child, 
+.el-table-v2 .el-table-v2__table .el-table-v2__body .el-table-v2__row{ 
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.el-table td:last-child, 
+.el-table-v2 .el-table-v2__table .el-table-v2__body .el-table-v2__row{ 
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+} 
+
+
+.el-table-v2 .el-table-v2__table .el-table-v2__body > div:first-child > div:first-child {
+    /* background-color: blue !important;  */
+    display: flex !important;
+    flex-direction: row !important;
+    row-gap: 1rem !important;
+    background-color: aliceblue;
+}
+
+.el-table-v2 .el-table-v2__table .el-table-v2__body .el-table-v2__row { 
+    background-color: var(--dark-primary-table) !important;
+    /* margin-top: 1rem; */
+  }
+
+/* Dark mode styles */
+/* @media (prefers-color-scheme: dark) {
+    .el-menu-vertical-demo {  
+        border-right: none;
     }
+ 
+    .el-menu--popup-container .el-menu .el-menu-item.is-active,
+    .el-menu-vertical-demo .el-sub-menu.is-active,
+    .el-menu-vertical-demo .el-sub-menu .el-sub-menu__title.is-active,
+    .el-menu-vertical-demo .el-menu-item.is-active {    
+        color: #ffd04b; 
+    } 
     
-}
+    .el-menu-vertical-demo,
+    .el-menu-vertical-demo .el-sub-menu__title,
+    .el-menu--popup-container>ul,
+    .el-menu-vertical-demo .el-sub-menu .el-menu-item {
+        background-color: #333; 
+    }
  
-
-.p-datatable-thead>tr>th:first-child {
-    border-top-left-radius: 0.5rem !important;
-}
-
-.p-datatable-thead>tr>th:last-child {
-    border-top-right-radius: 0.5rem !important;
-}
-
-.p-datatable-tbody>tr>td:last-child {
-    border-bottom-right-radius: 0.5rem !important; 
-}
-
-.p-datatable-tbody>tr>td:first-child {
-    border-bottom-left-radius: 0.5rem !important; 
-} 
-
-.p-datatable-tbody>tr:last-child {
-    border-bottom: 0 !important;
-}
-/* 
-.p-datatable {
-    -tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
-} */
+    .el-menu-vertical-demo .el-menu-item,
+    .el-menu--popup-container>ul> li,
+    .el-menu--popup-container>ul> li .el-sub-menu__title,
+    .el-menu-vertical-demo .el-sub-menu__title {  
+        color: #fff; 
+    }
  
-/* 
-.animate-slidedown-enter-active{
-    transition: all 0.3s;
-    max-height: 500px;
-}
+    .el-menu--popup-container>ul> li:hover,
+    .el-menu--popup-container>ul> li .el-sub-menu__title:hover,
+    .el-menu-vertical-demo .el-menu-item:hover,
+    .el-menu-vertical-demo .el-sub-menu__title:hover,
+    .el-menu-vertical-demo .el-sub-menu .el-menu-item:hover {
+        background-color: #444; 
+    }  
 
-.animate-slidedown-enter-to{
-    max-height: 500px;
-}
-
-.animate-slidedown-leave-active{
-    transition: all 0.3s;
-    max-height: 0;
-}
-
-.animate-slideup-enter-active{
-    transition: all 0.3s;
-    max-height: 500px;
-}
-
-.animate-slideup-enter-to{
-    max-height: 500px;
-}
-
-.animate-slideup-leave-active{
-    transition: all 0.3s;
-    max-height: 0;
+    .el-menu--popup-container  {
+        background-color: blue;
+        border-color: #ffd04b; 
+    }
+ 
 } */
+
+
+ 
