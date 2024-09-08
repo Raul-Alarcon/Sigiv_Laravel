@@ -1,10 +1,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { useDark, useToggle } from '@vueuse/core';
 import { ref, watch } from 'vue';
 
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
+
 
 
 const tableData = [
@@ -51,7 +49,7 @@ const handleClick = () => {
         <div>
 
             <div class="flex justify-end">
-                <el-button type="primary" v-on:click="toggleDark()"> {{ isDark ? "Light" : "Dark" }}</el-button>
+                
             </div>
 
             <el-table :data="tableData" :default-sort="{ prop: 'date', order: 'descending' }" style="width: 100%">
