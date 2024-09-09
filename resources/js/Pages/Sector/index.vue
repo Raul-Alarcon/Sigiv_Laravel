@@ -1,218 +1,104 @@
 <script setup>
-import Modal from '@/Components/Modal.vue';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { sector, services } from '@/models/Sectors';
-import { useForm } from '@inertiajs/vue3';
-import { FilterMatchMode } from '@primevue/core/api';
-import Column from 'primevue/column';
-import DataTable from 'primevue/datatable';
-import { useToast } from 'primevue/usetoast';
-import { ref } from 'vue';
+import ManagementPage from '@/Layouts/ManagementPage.vue';
+import SectorService from '@/Services/SectorService.js';
+import { reactive, ref } from 'vue';
+
+import CTable from '@/Components/CTable.vue';
+import CModalForm from '@/Components/CModalForm.vue';
+
+const service = new SectorService();
 
 
-defineProps({
-    sectors: {
-        type: Array,
-        required: true
-    }
-});
-
-const toast = useToast();
-const options = ref([
-    { label: 'Enable', value: 'Enable' },
-    { label: 'Disable', value: 'Disable' }
-]);
-
-const selectionOption = ref({ label: 'Disable', value: 'Disable' });
+const modal = ref(false);
 const loading = ref(false);
-const loadingButton = ref(false);
-const showModal = ref(false);
-const formSector = useForm({ ...sector });
-const selectedSector = ref(null);
 
-const handlerEdit = (sector) => {
-    showModal.value = true;
-    formSector.name = sector.name;
-    formSector.description = sector.description;
-    formSector.status = sector.status;
-    selectedSector.value = sector;
-}
+const model = reactive({ ...service.model });
+const formRules = reactive({ ...service.rules });
 
-const handlerDelete = async (sector) => {
-    loading.value = true;
-    const result = await services.delete(sector.id);
-    console.log(result);
-    loading.value = false;
-    // window.location.reload();
-}
+const sectors = ref([]);
 
-const handlerSelectedButton = () => {
-    console.log(selectionOption.value)
-}
-
-const handlerChangeStatus = async (sector) => {
-    loading.value = true;
-    const result = await services.updateStatus(sector.id);
-    console.log(result);
-    loading.value = false;
-    // window.location.reload();
-}
-
-const haddlerSubmit = async () => {
-    loadingButton.value = true;
-    const sector = {
-        name: formSector.name,
-        description: formSector.description,
-        status: formSector.status
+(async () => {
+    try {
+        let response = await service.getAll();
+        console.log(response)
+        sectors.value = response.data;
+    } catch (error) {
+        console.log(error)
     }
-    if (selectedSector.value) {
-        sector.id = selectedSector.value.id;
-        const result = await services.update(sector);
-        console.log(result);
-        showModal.value = false;
-        selectedSector.value = null;
-        formSector.reset();
-        loadingButton.value = false;
-        // window.location.reload();
-        return;
-    }
-    const result = await services.store(sector);
-    console.log(result);
-    showModal.value = false;
-    loadingButton.value = false;
-    formSector.reset();
-    // window.location.reload();
+})();
+
+
+const handerSubmit = (elForm) => {
+    loading.value = true
+    setTimeout( () => {
+        loading.value =  false;
+        console.log(model)
+    }, 2000)
 }
 
-const filters = ref({
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    status: { value: null, matchMode: FilterMatchMode.EQUALS }
-});
 </script>
-
 <template>
 
-    <app-layout :title="'Sectors'">
-        <Toast />
+    <div class="flex w-full justify-center">
+        <el-button type="primary" v-on:click="modal = true">Show</el-button>
 
-        <!-- component -->
-        <section class="container px-4 mx-auto pt-7 md:pt-10">
-            <div class="sm:flex sm:items-center sm:justify-between">
-                <div>
-                    <div class="flex items-center gap-x-3">
-                        <h2 class="text-lg font-medium text-gray-800 dark:text-white">Sectors</h2>
+        <c-modal-form title="Sector Form" v-on:onSubmit="handerSubmit" :loading="loading" :show="modal" :model="model" :rules="formRules" v-on:close="modal = false"
+            width="sm">
 
-                        <Tag severity="info" :value="`${(parseInt(sectors.values.length) + 1)} Count`" rounded>
-                        </Tag>
-                    </div>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Lorem ipsum dolor sit, amet consectetur
-                        adipisicing
-                        elit.
-                    </p>
-                </div>
-                <div class="flex items-center mt-4 gap-x-3">
-                    <Button label="Export" icon="pi pi-cloud-upload" severity="contrast" outlined="">
-                    </Button>
+            <template #form-conntent="{ data, isLoading }">
+                <el-form-item label="Name" prop="name">
+                    <el-input v-model="data.name" placeholder="Name" clearable></el-input>
+                </el-form-item>
 
-                    <Button label="Add Sector" icon="pi pi-plus-circle" @click="showModal = true">
-                    </Button>
-                </div>
-            </div>
-            <div class="flex flex-col ">
-                <DataTable v-model:filters="filters" :value="sectors" paginator :rows="5" row-hover :loading="loading" class="!rounded-l-3xl !text-blue-800" :globalFilterFields="['name', 'status']">
-                    <template #header>
-                        <div class="mt-6 md:flex md:items-center md:justify-between mb-4">
-                            <div
-                                class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
-                                <SelectButton v-model="selectionOption" :options="options" aria-labelledby="custom"
-                                    option-label="label" data-key="value" allowEmpty :invalid="selectionOption === null"
-                                    @change="handlerSelectedButton">
-                                </SelectButton>
-                            </div>
-                            <div class="relative flex items-center mt-4 md:mt-0">
-                                <IconField>
-                                    <InputIcon>
-                                        <i class="pi pi-search" />
-                                    </InputIcon>
-                                    <InputText v-model="filters['global'].value" placeholder="Keyword Search"
-                                        class="md:w-96" />
-                                </IconField>
-                            </div>
-                        </div>
-                    </template>
+                <el-form-item label="Description" prop="description">
+                    <el-input v-model="data.description" type="textarea" placeholder="Description" :rows="4"
+                        clearable></el-input>
+                </el-form-item>
+            </template> 
 
-                    <template #empty>
-                        Aun no tienes registros de Sectores que mostrar
-                    </template>
-                    <template #loading>
-                        Cargando...
-                    </template>
-                    <Column header="ID" field="id" sortable></Column>
-                    <Column header="Name" field="name" sortable style="min-width: 12rem"></Column>
-                    <Column header="Description" field="description"></Column>
-                    <Column header="Status" field="status" :showFilterMenu="false" style="min-width: 12rem">
-                        <template #body="{ data }">
-                            <Tag :severity="(data.status ? 'succser' : 'danger')"
-                                :value="(data.status ? 'Active' : 'Inactive')"></Tag>
-                        </template>
-                    </Column>
-                    <Column header="Switch">
-                        <template #body="{ data }">
-                            <ToggleSwitch v-model="data.status" v-on:change="handlerChangeStatus(data)"></ToggleSwitch>
-                        </template>
-                    </Column>
-                    <Column header="Actions" header-class="!flex !justify-center">
-                        <template #body="{ data }">
-                            <div class="flex justify-center space-x-3">
-                                <Button @click="handlerEdit(data)" icon="pi pi-pencil" rounded outlined
-                                    aria-label="Edit">
-                                </Button>
-                                <Button @click="handlerDelete(data)" icon="pi pi-trash" severity="danger" rounded
-                                    outlined aria-label="Delete">
-                                </Button>
-                            </div>
-                        </template>
-                    </Column>
-                </DataTable>
-            </div>
-            <Modal :show="showModal" @close="showModal = false" maxWidth="sm">
-                <div class="px-3 py-5 md:px-6 md:py-9 space-y-4">
+            <template #form-actions="{ data, isLoading }">
+                <el-switch v-model="data.status" :disabled="isLoading"></el-switch>
+            </template> 
+        </c-modal-form>
+    </div>
 
-                    <div class="flex justify-between items-center">
-                        <h2 class="font-semibold text-lg uppercase">Sector Form</h2>
+    <!-- <c-table :data="sectors" :is-manager="true" 
+     :model="model"
+        width-column="70-150-400-100">
+        <template #status="{ row }">
+            <el-switch v-model="row.status"></el-switch>
+        </template>
+</c-table> -->
 
-                        <Button icon="pi pi-times" outlined severity="secondary" @click="showModal = false">
-                        </Button>
 
-                    </div>
+    <!-- <management-page :table-data="sectors" title="Sectors" model-name="Sector" :model="model" :form-rules="formRules" modal-width="sm">
+        <template #description> 
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At quae aspernatur obcaecati</p>
+        </template>
 
-                    <form @submit.prevent="haddlerSubmit">
-                        <div class="grid gap-4">
-                            <label for="nameSector" class="flex flex-col-reverse">
-                                <InputText v-model="formSector.name" id="nameSector" placeholder="Name for sector">
-                                </InputText>
-                                <span class="font-semibold text-gray-600">Name</span>
-                            </label>
+        <template #table-columns> 
+            <el-table-column prop="id" label="Id" width="70" fixed="left"></el-table-column>
+            <el-table-column prop="name" label="Name" width="150"></el-table-column>
+            <el-table-column prop="description" label="Description" width="400"></el-table-column>
+            <el-table-column prop="status" label="Status" width="100">
+                <template #default="{ row }">
+                    <el-switch v-model="row.status"></el-switch>
+                </template>
+            </el-table-column>  
+        </template>
 
-                            <label for="descriptionSector" class="flex flex-col-reverse">
-                                <Textarea v-model="formSector.description" placeholder="Description for sector"
-                                    :rows="4">
-                    </Textarea>
-                                <span class="font-semibold text-gray-600">Description</span>
-                            </label>
+        <template #form="{ data }"> 
+            <el-form-item label="Name" prop="name">
+                <el-input v-model="data.name" placeholder="Name" clearable></el-input>
+            </el-form-item>
 
-                            <div class="flex justify-between space-x-4 items-center">
-                                <ToggleSwitch v-model="formSector.status">
-                                </ToggleSwitch>
-                                <Button :loading="loadingButton" type="submit" label="Save" icon="pi pi-save">
-                                </Button>
-                            </div>
-                        </div>
-                    </form>
+            <el-form-item label="Description" prop="description">
+                <el-input v-model="data.description" type="textarea" placeholder="Description" :rows="4" clearable></el-input>
+            </el-form-item> 
+        </template>
 
-                </div>
-            </Modal>
-        </section>
-    </app-layout>
+        <template #form-actions="{ data }">
+            <el-switch v-model="data.status"></el-switch>
+        </template>
+    </management-page> -->
 </template>

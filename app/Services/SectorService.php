@@ -5,10 +5,10 @@ use App\Models\Sector;
 
 class SectorService
 {
-    public function index()
+    public function index(int $paginate = 10)
     {
-        return Sector::all();
-    }
+        return Sector::paginate($paginate);
+    } 
 
     public function store($request)
     {

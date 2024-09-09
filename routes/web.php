@@ -32,13 +32,17 @@ Route::middleware([
         Route::get('/categories', function () { return Inertia::render('Category/index'); })->name('categories.page'); 
     });
 
+    Route::controller(SectorController::class)->group(function () {
+        Route::get('/sectors', function () { return Inertia::render('Sector/index'); })->name('sectors.page'); 
+    });
+
 
     Route::get('/socialmedia', [SocialMediaController::class, 'index'])->name('socialmedia.index');
     Route::post('/socialmedia', [SocialMediaController::class, 'store'])->name('socialmedia.store');
     Route::delete('/socialmedia/{Id}', [SocialMediaController::class, 'destroy'])->name('socialmedia.destroy');
     Route::put('/socialmedia/{Id}', [SocialMediaController::class,'update'])->name('socialmedia.update');
     
-    Route::get('/sectors', [SectorController::class, 'index'])->name('sectors.index');
+    // Route::get('/sectors', [SectorController::class, 'index'])->name('sectors.index');
     Route::patch('/sectors/{id}',[SectorController::class, 'changeStatus'])->name('sector.update.status');
     Route::post('/sectors', [SectorController::class, 'store'])->name('sector.store');
     Route::delete('/sectors/{id}', [SectorController::class, 'destroy'])->name('sector.destroy');

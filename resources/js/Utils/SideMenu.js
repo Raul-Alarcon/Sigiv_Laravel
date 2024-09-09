@@ -16,7 +16,7 @@ const items = [
             {
               title: 'Sectores',
               icon: 'pi pi-wave-pulse',
-              link: 'sectors.index',
+              link: 'sectors',
               index: '2-1-1'
             },
             {

@@ -14,13 +14,11 @@ class SectorController extends Controller
         $this->sectorService = $sectorService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $sectors = $this->sectorService->index();
-
-        return Inertia::render('Sector/index', [
-            'sectors' => $sectors
-        ]);
+        $paginate = $request->query('paginate') ?? 10;
+        $sectors = $this->sectorService->index($paginate);
+        return response()->json($sectors, 200);
     }
 
     public function changeStatus(String $id){
