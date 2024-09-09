@@ -8,7 +8,7 @@ class SectorService
     public function index(int $paginate = 10)
     {
         return Sector::paginate($paginate);
-    } 
+    }
 
     public function store($request)
     {
@@ -25,6 +25,13 @@ class SectorService
         $sector = Sector::find($id);
         $sector->update($request->all());
         return $sector;
+    }
+
+    public function changeStatus($id)
+    {
+        $sector = Sector::find($id);
+        $sector->status = !$sector->status;
+        $sector->update(); 
     }
 
     public function destroy($id)

@@ -1,15 +1,14 @@
 import axios from 'axios'
-import { ref } from 'vue'
 
 const category = {
     id: 0,
     name: '',
-    description: '', 
+    description: '',
     status : true
 }
 
 
-const service = {} 
+const service = {}
 
 service.categories = []
 
@@ -22,7 +21,7 @@ service.ToModel  = (form) => {
     }
 }
 
-service.getAll = async () => { 
+service.getAll = async () => {
     let responce = await axios.get('/api/categories')
     if(responce.status != 200) throw new Error('Error al cargar las categorias')
     let paginationData = responce.data
@@ -30,7 +29,7 @@ service.getAll = async () => {
 }
 
 
-service.create = async (data) => {  
+service.create = async (data) => {
     let responce = await axios.post('/api/categories', data)
     if(responce.status != 201) throw new Error('Error al crear la categoria')
     return responce.data
@@ -44,7 +43,7 @@ service.update = async (id, data) => {
 
 service.updateStatus = async (id) => {
     let responce = await axios.patch(`/api/categories/${id}`)
-    if(responce.status != 204) throw new Error('Error al actualizar el estado de la categoria') 
+    if(responce.status != 204) throw new Error('Error al actualizar el estado de la categoria')
 }
 
 service.delete = async (id) => {
@@ -55,4 +54,4 @@ service.delete = async (id) => {
 
 
 
-export { category, service}
+export { category, service }

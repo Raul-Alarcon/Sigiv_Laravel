@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::controller(CategoryController::class)->group(function () { 
+Route::controller(CategoryController::class)->group(function () {
     Route::get('/categories', 'index')->name('categories.index');
     Route::post('/categories', 'store')->name('categories.store');
     Route::delete('/categories/{id}', 'destroy')->name('categories.destroy');
@@ -34,5 +34,5 @@ Route::controller(SectorController::class)->group(function () {
     Route::post('/sectors', 'store')->name('sectors.store');
     Route::delete('/sectors/{id}', 'destroy')->name('sectors.destroy');
     Route::put('/sectors/{id}', 'update')->name('sectors.update');
-    Route::patch('/sectors/{id}', 'updateStatus')->name('sectors.update.status');
+    Route::patch('/sectors/{id}', 'changeStatus')->name('sectors.update.status');
 });
