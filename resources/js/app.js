@@ -12,6 +12,8 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import CTable from './Components/CTable.vue';
+import CModalForm from './Components/CModalForm.vue';
 // import { custon_presets } from './theme';
 // import ToastService from 'primevue/toastservice'; 
 
@@ -23,6 +25,9 @@ createInertiaApp({
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
+            .component('appName', appName)
+            .component('CTable', CTable)
+            .component('CModalForm', CModalForm)
             .use(plugin) 
             .use(ElementPlus)
             .use(ZiggyVue)

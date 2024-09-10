@@ -19,6 +19,12 @@ export default class BaseService {
         return responce.data;
     }
 
+    async search(query) {
+        let responce = await axios.get(`${this.urlApi}?search=${query}`,);
+        if (responce.status != 200) throw new Error('Error loading data');
+        return responce.data;
+    }
+
     async delete(id) {
         let responce = await axios.delete(`${this.urlApi}/${id}`);
         if (responce.status != 204) throw new Error('Error deleting data');

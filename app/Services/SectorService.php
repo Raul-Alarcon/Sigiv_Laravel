@@ -1,13 +1,21 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\Sector;
 
 class SectorService
 {
-    public function index(int $paginate = 10)
-    {
-        return Sector::paginate($paginate);
+    public function index($paginate, $search = null)
+    { 
+        $query = Sector::query();
+ 
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+        }
+ 
+        return $query->paginate($paginate);
     }
 
     public function store($request)
@@ -31,7 +39,7 @@ class SectorService
     {
         $sector = Sector::find($id);
         $sector->status = !$sector->status;
-        $sector->update(); 
+        $sector->update();
     }
 
     public function destroy($id)

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Services\SectorService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,13 +16,15 @@ class SectorController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $paginate = $request->query('paginate') ?? 10;
-        $sectors = $this->sectorService->index($paginate);
+    { 
+        $paginate = $request->query('paginate') ?? 10; 
+        $search = $request->query('search') ?? null; 
+        $sectors = $this->sectorService->index($paginate, $search); 
         return response()->json($sectors, 200);
     }
 
-    public function changeStatus(String $id){
+    public function changeStatus(String $id)
+    {
         $this->sectorService->changeStatus($id);
         return response()->json(null, 204);
     }
@@ -41,6 +44,6 @@ class SectorController extends Controller
     public function destroy(string $id)
     {
         $this->sectorService->destroy($id);
-        return response()->json(null,204);
+        return response()->json(null, 204);
     }
 }
