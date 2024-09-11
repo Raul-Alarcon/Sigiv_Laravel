@@ -54,7 +54,7 @@ const handlerSumit = async (formel) => {
     <modal :title="title" :show="show" v-on:close="onClose(formRef)" :maxWidth="width">
         <el-form ref="formRef" :rules="rules" :model="model" label-position="top">
             <loading-template :loading="loading" :isLoading="loading">
-                <slot name="form-conntent" :data="model"></slot>
+                <slot name="form-content" :data="model"></slot>
             </loading-template>
 
             <el-form-item>

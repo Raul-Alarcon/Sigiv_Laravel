@@ -5,7 +5,10 @@ import { Edit, Delete } from '@element-plus/icons-vue';
 const props = defineProps({
     data: Array,
     model: Object,
-    widthColumn: String,
+    widthColumn: {
+        type: String, 
+        default: ""
+    },
     isManager: {
         type: Boolean,
         default: false

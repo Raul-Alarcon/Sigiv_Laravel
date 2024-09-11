@@ -11,11 +11,11 @@ const search = ref('');
 const { Main, 
     opc, 
     entities, 
-    handerDelete,
+    handlerDelete,
     handlerEdit, 
     model, 
     rules, 
-    handerSubmit,  
+    handlerSubmit,  
     handlerInputEnter,
     handlerChangeStatus,
     openModal } = useManager(service);
@@ -46,7 +46,7 @@ const { Main,
         </template>
 
         <template #content>
-            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handerDelete" :is-manager="true"
+            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="true"
                 :model="model" width-column="70-150-400-100" :loading="opc.table">
                 <template #status="{ row }">
                     <el-switch v-model="row.status" v-on:change="handlerChangeStatus(row)"></el-switch>
@@ -55,10 +55,10 @@ const { Main,
         </template>
 
         <template #footerContent>
-            <c-modal-form title="Sector Form" v-on:onSubmit="handerSubmit" :loading="opc.loading" :show="opc.modal"
+            <c-modal-form title="Sector Form" v-on:onSubmit="handlerSubmit" :loading="opc.loading" :show="opc.modal"
                 :model="model" :rules="rules" v-on:close="opc.modal = false" width="sm">
 
-                <template #form-conntent="{ data, isLoading }">
+                <template #form-content="{ data, isLoading }">
                     <el-form-item label="Name" prop="name">
                         <el-input v-model="data.name" placeholder="Name" clearable></el-input>
                     </el-form-item>

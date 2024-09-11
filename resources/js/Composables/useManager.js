@@ -88,7 +88,7 @@ export default function useManager(service) {
         ElMessage(service.opcElMessage);
     };
 
-    const handerSubmit = async (elForm) => {
+    const handlerSubmit = async (elForm) => {
         try {
             if (model.id !== 0) {
                 await handlerUpdate(elForm);
@@ -105,7 +105,7 @@ export default function useManager(service) {
         opc.modal = true;
     };
 
-    const handerDelete = async (row) => {
+    const handlerDelete = async (row) => {
         try {
             opc.table = true;
             await service.delete(row.id);
@@ -139,9 +139,9 @@ export default function useManager(service) {
         rules,
         Main,
         openModal,
-        handerSubmit,
+        handlerSubmit,
         handlerEdit,
-        handerDelete,
+        handlerDelete,
         handlerChangeStatus,
         handlerInputEnter,
     };

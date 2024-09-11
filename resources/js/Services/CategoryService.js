@@ -1,57 +1,27 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
-const category = {
-    id: 0,
-    name: '',
-    description: '',
-    status : true
-}
+export default class CategoryService extends BaseService {
+    constructor() {
+        super('api/categories');
 
+        this.model = {
+            id: 0,
+            name: '',
+            description: '',
+            status: true
+        }
 
-const service = {}
-
-service.categories = []
-
-service.ToModel  = (form) => {
-    return {
-        id: form.id || 0,
-        name: form.name,
-        description: form.description,
-        status: form.status
+        this.rules = {
+            name: [
+                { required: true, message: 'The name is required', trigger: 'blur' },
+                { min: 3, message: 'The name must be at least 3 characters long ', trigger: 'blur' },
+                { max: 50, message: 'The name must be no longer than 50 characters', trigger: 'blur' }
+            ],
+            description: [
+                { required: true, message: 'The description is required', trigger: 'blur' },
+                { min: 20, message: 'The description must be at least 20 characters long', trigger: 'blur' },
+                { max: 255, message: 'The description must be no longer than 255 characters', trigger: 'blur' }
+            ]
+        }
     }
-}
-
-service.getAll = async () => {
-    let responce = await axios.get('/api/categories')
-    if(responce.status != 200) throw new Error('Error al cargar las categorias')
-    let paginationData = responce.data
-    return paginationData
-}
-
-
-service.create = async (data) => {
-    let responce = await axios.post('/api/categories', data)
-    if(responce.status != 201) throw new Error('Error al crear la categoria')
-    return responce.data
-}
-
-service.update = async (id, data) => {
-    let responce = await axios.put(`/api/categories/${id}`, data)
-    if(responce.status != 200) throw new Error('Error al actualizar la categoria')
-    return responce.data
-}
-
-service.updateStatus = async (id) => {
-    let responce = await axios.patch(`/api/categories/${id}`)
-    if(responce.status != 204) throw new Error('Error al actualizar el estado de la categoria')
-}
-
-service.delete = async (id) => {
-    let responce = await axios.delete(`/api/categories/${id}`)
-    if(responce.status != 204) throw new Error('Error al eliminar la categoria')
-    return responce.data
-}
-
-
-
-export { category, service }
+}  
