@@ -14,8 +14,10 @@ class CategoryController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function index(){
-        $data = $this->categoryService->getAll();
+    public function index(Request $request){
+        $paginate = $request->query('paginate') ?? 10; 
+        $search = $request->query('search') ?? null; 
+        $data = $this->categoryService->getAll($paginate, $search);
         return response()->json($data, 200); 
     }  
 

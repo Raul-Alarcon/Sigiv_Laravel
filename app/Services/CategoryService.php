@@ -5,10 +5,15 @@ use App\Models\Category;
 use Illuminate\Validation\Rules\In;
 
 class CategoryService
-{ 
-    public function getAll(Int $limit = 10)
-    {
-        return Category::paginate($limit);
+{
+    public function getAll($paginate, $search = null)
+    { 
+        $query = Category::query(); 
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+        } 
+        return $query->paginate($paginate); 
     }
 
     public function create($request)
@@ -25,7 +30,7 @@ class CategoryService
     {
         $category = Category::find($id);
         $category->status = !$category->status;
-        $category->update(); 
+        $category->update();
     }
 
     public function update($request, $id)

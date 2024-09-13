@@ -14,5 +14,9 @@ class Charge extends Model
         'status',
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     public $timestamps = true;
 }
