@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\GenderController;
+use App\Http\Controllers\SocialMediaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,8 @@ Route::controller(CategoryController::class)->group(function () {
 
 
 Route::controller(ChargeController::class)->group(function () {
-    Route::get('/charges', 'index')->name('charges.index');
+    Route::get('/charges
+    ', 'index')->name('charges.index');
     Route::post('/charges','store')->name('charges.store');
     Route::delete('/charges/{id}', 'destroy')->name('charges.destroy');
     Route::put('/charges/{id}', 'update')->name('charges.update');
@@ -50,11 +52,11 @@ Route::controller(GenderController::class)->group(function () {
 });
 
 Route::controller(SupplierController::class)->group(function () {
-    Route::get('/suppliers', 'index');
-    Route::post('/suppliers', 'store');
-    Route::put('/suppliers/{id}', 'update');
-    Route::delete('/suppliers/{id}', 'destroy');
-    Route::patch('/suppliers/{id}', 'updateStatus');
+    Route::get('/suppliers', 'index')->name('suppliers.index');
+    Route::post('/suppliers', 'store')->name('suppliers.store');
+    Route::put('/suppliers/{id}', 'update')->name('suppliers.update');
+    Route::delete('/suppliers/{id}', 'destroy')->name('suppliers.destroy');
+    Route::patch('/suppliers/{id}', 'updateStatus')->name('suppliers.update.status');
 });
 
 Route::controller(PurchasestatusController::class)->group(function () {
@@ -72,5 +74,14 @@ Route::controller(ProductstatusController::class)->group(function () {
     Route::delete('/productstatuses/{id}', 'destroy');
     Route::patch('/productstatuses/{id}', 'updateStatus');
 });
+
+Route::controller(SocialMediaController::class)->group(function () {
+    Route::get('/socialmedia', 'index');
+    Route::post('/socialmedia', 'store');
+    Route::put('/socialmedia/{id}', 'update');
+    Route::delete('/socialmedia/{id}', 'destroy');
+});
+
+
 
 

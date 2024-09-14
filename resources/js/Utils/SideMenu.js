@@ -24,6 +24,24 @@ const items = [
               icon: 'pi pi-wave-pulse',
               link: 'categories',
               index: '2-1-2'
+            },
+            {
+                title: 'Generos',
+                icon: 'pi pi-wave-pulse',
+                link: 'generes',
+                index: '2-1-2'
+            },
+            {
+                title: 'Cargos',
+                icon: 'pi pi-wave-pulse',
+                link: 'Charge',
+                index: '2-1-2'
+            },
+            {
+                title: 'Suppliers',
+                icon: 'pi pi-wave-pulse',
+                link: 'suppliers',
+                index: '2-1-2'
             }
           ]
         }

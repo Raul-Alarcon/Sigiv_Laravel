@@ -1,10 +1,10 @@
 import BaseService from "./BaseService.js";
- 
+
 export default class SectorService extends BaseService{
 
     constructor(){
         super('api/sectors');
-        
+
         this.model = {
             id: 0,
             name: '',
@@ -26,4 +26,3 @@ export default class SectorService extends BaseService{
         }
     }
 }
- 
