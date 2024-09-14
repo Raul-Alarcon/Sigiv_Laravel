@@ -1,28 +1,39 @@
 <script setup>
-import { ref, defineProps } from 'vue';
-import { Head } from '@inertiajs/vue3'; 
+import { ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
 import SideBard from '@/Components/SideBard.vue';
 import NavBard from '@/Components/NavBard.vue';
 
+import { useDark, useToggle } from '@vueuse/core';
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
+
+
 defineProps({
     title: String,
-});
- 
-const expandDrawer = ref(false) 
+})
 
-const handlerDrawer = () => {
-    expandDrawer.value = !expandDrawer.value
-}; 
+const isCollapse = ref(true)
 
 </script>
 
-<template>
-    <div> 
-        <Head :title="title" />  
-        <nav-bard @drawer-click="handlerDrawer"></nav-bard>
-        <side-bard :visible="expandDrawer" @update:visible="handlerDrawer"> </side-bard> 
-        <main class="ml-6 md:ml-96 mt-16 mr-6 text-justify"> 
-            <slot></slot>
-        </main>
-    </div>
-</template>
+<template> 
+    <div>
+        <el-container style="height: 100vh"> 
+            <Head :title="title" /> 
+            <side-bard :collapse="isCollapse"></side-bard>
+            <el-container>
+                <!-- <nav-bard></nav-bard>  -->
+                <el-main> 
+                    <div class="text-center">
+                        <el-button v-on:click="isCollapse = !isCollapse"> Drawer</el-button>
+                        <el-button type="primary" v-on:click="toggleDark()"> {{ isDark ? "Light" : "Dark" }}</el-button>
+                    </div>
+                    <div class="px-8">
+                        <slot></slot> 
+                    </div>
+                </el-main>
+            </el-container>
+        </el-container> 
+    </div> 
+</template>  
