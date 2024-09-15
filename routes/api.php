@@ -60,26 +60,26 @@ Route::controller(SupplierController::class)->group(function () {
 });
 
 Route::controller(PurchasestatusController::class)->group(function () {
-    Route::get('/purchasestatuses', 'index');
-    Route::post('/purchasestatuses', 'store');
-    Route::put('/purchasestatuses/{id}', 'update');
-    Route::delete('/purchasestatuses/{id}', 'destroy');
-    Route::patch('/purchasestatuses/{id}', 'updateStatus');
+    Route::get('/purchasestatus', 'index')->name('purchasestatus.index');
+    Route::post('/purchasestatus', 'store')->name('purchasestatus.store');
+    Route::put('/purchasestatus/{id}', 'update')->name('purchasestatus.update');
+    Route::delete('/purchasestatus/{id}', 'destroy')->name('purchasestatus.destroy');
+    Route::patch('/purchasestatus/{id}', 'updateStatus')->name('purchasestatus.update.status');
 });
 
 Route::controller(ProductstatusController::class)->group(function () {
-    Route::get('/productstatuses', 'index');
-    Route::post('/productstatuses', 'store');
-    Route::put('/productstatuses/{id}', 'update');
-    Route::delete('/productstatuses/{id}', 'destroy');
-    Route::patch('/productstatuses/{id}', 'updateStatus');
+    Route::get('/productstatus', 'index')->name('productstatus.index');
+    Route::post('/productstatus', 'store')->name('productstatus.store');
+    Route::put('/productstatus/{id}', 'update')->name('productstatus.update');
+    Route::delete('/productstatus/{id}', 'destroy')->name('productstatus.destroy');
+    Route::patch('/productstatus/{id}', 'updateStatus')->name('productstatus.update.status');
 });
 
 Route::controller(SocialMediaController::class)->group(function () {
-    Route::get('/socialmedia', 'index');
-    Route::post('/socialmedia', 'store');
-    Route::put('/socialmedia/{id}', 'update');
-    Route::delete('/socialmedia/{id}', 'destroy');
+    Route::get('/socialmedia', 'index')->name('socialmedia.index');
+    Route::post('/socialmedia', 'store')->name('socialmedia.store');
+    Route::put('/socialmedia/{id}', 'update')->name('socialmedia.update');
+    Route::delete('/socialmedia/{id}', 'destroy')->name('socialmedia.destroy');
 });
 
 

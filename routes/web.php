@@ -6,6 +6,8 @@ use App\Http\Controllers\SectorController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PurchasestatusController;
+use App\Http\Controllers\ProductstatusController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,28 +32,21 @@ Route::middleware([
 
     Route::get('/Charge', function () { return Inertia::render('Charge/index'); })->name('charge.page');
 
-    Route::controller(CategoryController::class)->group(function () {
-        Route::get('/categories', function () { return Inertia::render('Category/index'); })->name('categories.page');
-    });
-    Route::controller(GenderController::class)->group(function () {
-        Route::get('/generes', function () { return Inertia::render('Gender/index'); })->name('generes.page');
-    });
+    Route::get('/ProductStatus', function () { return Inertia::render('ProductStatus/index'); })->name('productstatus.page');
 
-    Route::controller(SectorController::class)->group(function () {
-        Route::get('/sectors', function () { return Inertia::render('Sector/index'); })->name('sectors.page');
-    });
+    Route::get('/PurchaseStatus', function () { return Inertia::render('PurchaseStatus/index'); })->name('purchasestatus.page');
 
-    Route::controller(SocialMediaController::class)->group(function () {
-        Route::get('/socialmedia', function () { return Inertia::render('SocialMedia/index'); })->name('socialmedia.page');
-    });
+    Route::get('/categories', function () { return Inertia::render('Category/index'); })->name('categories.page');
 
-    Route::controller(SupplierController::class)->group(function () {
-        Route::get('/suppliers', function () { return Inertia::render('Supplier/index'); })->name('suppliers.page');
-    });
+    Route::get('/generes', function () { return Inertia::render('Gender/index'); })->name('generes.page');
 
-    Route::controller(ChargeController::class)->group(function () {
-        Route::get('/charges', function () { return Inertia::render('Charge/index'); })->name('charges.page');
-    });
+    Route::get('/sectors', function () { return Inertia::render('Sector/index'); })->name('sectors.page');
+
+    Route::get('/socialmedia', function () { return Inertia::render('SocialMedia/index'); })->name('socialmedia.page');
+
+    Route::get('/suppliers', function () { return Inertia::render('Supplier/index'); })->name('suppliers.page');
+
+    Route::get('/charges', function () { return Inertia::render('Charge/index'); })->name('charges.page');
 });
 
 

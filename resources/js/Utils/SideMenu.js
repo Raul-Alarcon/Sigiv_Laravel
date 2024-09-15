@@ -42,6 +42,24 @@ const items = [
                 icon: 'pi pi-wave-pulse',
                 link: 'suppliers',
                 index: '2-1-2'
+            },
+            {
+                title: 'Social Media',
+                icon: 'pi pi-wave-pulse',
+                link: 'socialmedia',
+                index: '2-1-2'
+            },
+            {
+                title: 'Estado de Pruducto',
+                icon: 'pi pi-wave-pulse',
+                link: 'ProductStatus',
+                index: '2-1-2'
+            },
+            {
+                title: 'Estado de Compra',
+                icon: 'pi pi-wave-pulse',
+                link: 'PurchaseStatus',
+                index: '2-1-2'
             }
           ]
         }
