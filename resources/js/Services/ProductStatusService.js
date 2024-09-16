@@ -2,7 +2,7 @@ import BaseService from './BaseService';
 
 export default class ProductStatusService extends BaseService {
     constructor() {
-        super('api/productstatuses');
+        super('api/productstatus');
 
         this.model = {
             id: 0,

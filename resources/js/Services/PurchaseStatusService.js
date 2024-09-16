@@ -3,7 +3,7 @@ import BaseService from "./BaseService.js";
 export default class SectorService extends BaseService{
 
     constructor(){
-        super('api/purchasestatuses');
+        super('api/purchasestatus');
 
         this.model = {
             id: 0,

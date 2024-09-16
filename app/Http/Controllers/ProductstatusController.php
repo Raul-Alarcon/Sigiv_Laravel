@@ -4,43 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Productstatus;
 use App\Http\Requests\ProductstatusRequest;
-use Illuminate\Http\JsonResponse;
+use App\Services\ProductStatusService;
+use Illuminate\Http\Request;
 
 class ProductstatusController extends Controller
 {
-    public function index() : JsonResponse
+    protected $productStatusService;
+    public function __construct(ProductStatusService $productStatusService)
     {
-        $productstatuses = Productstatus::orderBy("created_at", "desc")->paginate(10);
-        return response()->json($productstatuses, 200);
-    }
-    public function store(ProductstatusRequest $request)
-    {
-        $validatedData = $request->validated();
-
-        $productstatus = Productstatus::create($validatedData);
-        return response()->json($productstatus, 201);
-    }
-    public function update(String $id, ProductstatusRequest $request)
-    {
-        $productstatus = Productstatus::findOrFail($id);
-        $productstatus->update($request->validated());
-
-        return response()->json($productstatus, 200);
-    }
-    public function destroy(String $id)
-    {
-        $productstatus = Productstatus::findOrFail($id);
-        $productstatus->delete();
-
-        return response()->json(["message" => "Productstatus deleted successfully"], 204);
+        $this->productStatusService = $productStatusService;
     }
 
-    public function updateStatus(String $id) : JsonResponse
-    {
-        $productstatus = Productstatus::findOrFail($id);
-        $productstatus->status = !$productstatus->status;
-        $productstatus->save();
+    public function index(Request $request){
+        $paginate = $request->query('paginate') ?? 10; 
+        $search = $request->query('search') ?? null; 
+        $data = $this->productStatusService->getAll($paginate, $search, ['name', 'description']);
+        return response()->json($data, 200); 
+    }  
 
-        return response()->json(["message" => "Productstatus status updated successfully"], 204);
+    public function store(Request $request)
+    {
+        $data = $this->productStatusService->create($request);
+        return response()->json($data, 201);
+    } 
+
+    public function update(Request $request, string $id)
+    {
+        $data = $this->productStatusService->update($request, $id);
+        return response()->json($data, 200);
+    } 
+
+    public function updateStatus(string $id)
+    {
+        $this->productStatusService->updateStatus($id);
+        return response()->json(null, 204);
+    }
+
+    public function destroy(string $id)
+    {
+        $this->productStatusService->destroy($id);
+        return response()->json(null, 204);
     }
 }

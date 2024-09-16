@@ -28,7 +28,7 @@ const { Main,
 
 </script>
 <template>
-    <management-layout title="Productstatus" :tag="`${entities.length}`">
+    <management-layout title="Product status" :tag="`${entities.length}`">
 
         <template #description>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum laboriosam consequuntur</p>

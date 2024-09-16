@@ -18,4 +18,7 @@ class Productstatus extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    public $timestamps = true;
+
 }
