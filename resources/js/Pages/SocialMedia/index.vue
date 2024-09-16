@@ -58,6 +58,9 @@ const { Main,
             <c-modal-form title="Social Media Form" v-on:onSubmit="handlerSubmit" :loading="opc.loading" :show="opc.modal"
                 :model="model" :rules="rules" v-on:close="opc.modal = false" width="sm">
 
+
+                <!-- TODO: Agregar el compo par logo(imagen) -->
+
                 <template #form-content="{ data, isLoading }">
                     <el-form-item label="Name" prop="name">
                         <el-input v-model="data.name" placeholder="Type Name" clearable></el-input>
