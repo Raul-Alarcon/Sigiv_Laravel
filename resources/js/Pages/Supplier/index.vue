@@ -46,8 +46,8 @@ const { Main,
         </template>
 
         <template #content>
-            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="false"
-                :model="model" width-column="100%" :loading="opc.table">
+            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="true"
+                :model="model" width-column="70-200-400-200-100-200" :loading="opc.table">
                 <template #status="{ row }">
                     <el-switch v-model="row.status" v-on:change="handlerChangeStatus(row)"></el-switch>
                 </template>
@@ -62,6 +62,25 @@ const { Main,
                     <el-form-item label="Name" prop="name">
                         <el-input v-model="data.name" placeholder="Type Supplier" clearable></el-input>
                     </el-form-item>
+
+                    <el-form-item label="Contact" prop="contact">
+                        <el-input v-model="data.contact" placeholder="Type contact" clearable></el-input>
+                    </el-form-item>
+
+
+                    <el-form-item label="Phone" prop="phone">
+                        <el-input v-model="data.phone" placeholder="Type phone" clearable></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="Email" prop="email">
+                        <el-input v-model="data.email" placeholder="Type email" clearable></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="Description" prop="description">
+                        <el-input v-model="data.description" placeholder="description" type="textarea"
+                            :rows="5"></el-input>
+                    </el-form-item>
+
                 </template>
 
                 <template #form-actions="{ data, isLoading }">

@@ -31,8 +31,8 @@ export default class SupplierService extends BaseService {
             ],
             phone: [
                 { required: true, message: 'The phone is required', trigger: 'blur' },
-                { min: 3, message: 'The phone must be at least 3 characters long ', trigger: 'blur' },
-                { max: 50, message: 'The phone must be no longer than 50 characters', trigger: 'blur' }
+                { min: 9, message: 'The phone must be at least 9 characters long ', trigger: 'blur' },
+                { max: 20, message: 'The phone must be no longer than 20 characters', trigger: 'blur' }
             ],
             email: [
                 { required: true, message: 'The email is required', trigger: 'blur' },

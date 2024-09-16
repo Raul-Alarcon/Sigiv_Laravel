@@ -21,4 +21,6 @@ class Supplier extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    public $timestamps = true; 
 }
