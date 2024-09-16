@@ -46,7 +46,7 @@ const { Main,
         </template>
 
         <template #content>
-            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="false"
+            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="true"
                 :model="model" width-column="70-400-400" :loading="opc.table">
                 <template #status="{ row }">
                     <el-switch v-model="row.status" v-on:change="handlerChangeStatus(row)"></el-switch>
