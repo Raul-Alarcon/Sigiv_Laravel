@@ -1,11 +1,11 @@
 <script setup>
 import useManager from '@/Composables/useManager';
 import ManagementLayout from '@/Layouts/ManagementLayout.vue';
-import ChargerService from '@/Services/chargerService';
+import PurchaseStatusService from '@/Services/PurchaseStatusService.js';
 import { CirclePlus, Search } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 
-const service = new ChargerService();
+const service = new PurchaseStatusService();
 const search = ref('');
 
 const { Main,
@@ -28,14 +28,14 @@ const { Main,
 
 </script>
 <template>
-    <management-layout title="Chargers" :tag="`${entities.length}`">
+    <management-layout title="Purchase Status" :tag="`${entities.length}`">
 
         <template #description>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum laboriosam consequuntur</p>
         </template>
 
         <template #actions>
-            <el-button type="primary" v-on:Click="openModal()" :icon="CirclePlus">Add Charger</el-button>
+            <el-button type="primary" v-on:Click="openModal()" :icon="CirclePlus">Add Purchase Status</el-button>
         </template>
 
 
@@ -46,8 +46,8 @@ const { Main,
         </template>
 
         <template #content>
-            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="false"
-                :model="model" width-column="70-400-400" :loading="opc.table">
+            <c-table :data="entities" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="true"
+                :model="model" width-column="70-150-400-100" :loading="opc.table">
                 <template #status="{ row }">
                     <el-switch v-model="row.status" v-on:change="handlerChangeStatus(row)"></el-switch>
                 </template>
@@ -55,12 +55,17 @@ const { Main,
         </template>
 
         <template #footerContent>
-            <c-modal-form title="Charge Form" v-on:onSubmit="handlerSubmit" :loading="opc.loading" :show="opc.modal"
+            <c-modal-form title="Purchase Status Form" v-on:onSubmit="handlerSubmit" :loading="opc.loading" :show="opc.modal"
                 :model="model" :rules="rules" v-on:close="opc.modal = false" width="sm">
 
                 <template #form-content="{ data, isLoading }">
                     <el-form-item label="Name" prop="name">
-                        <el-input v-model="data.name" placeholder="Type Charger" clearable></el-input>
+                        <el-input v-model="data.name" placeholder="Name" clearable></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="Description" prop="description">
+                        <el-input v-model="data.description" type="textarea" placeholder="Description" :rows="4"
+                            clearable></el-input>
                     </el-form-item>
                 </template>
 

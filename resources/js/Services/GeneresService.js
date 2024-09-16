@@ -1,8 +1,8 @@
 import BaseService from "./BaseService";
 
-export default class chargerService extends BaseService{
+export default class GeneresService extends BaseService{
     constructor(){
-        super ('api/chargers');
+        super ('api/generes');
 
         this.model = {
             id: 0,

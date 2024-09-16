@@ -1,24 +1,24 @@
-<script setup>  
+<script setup>
 import ManagementLayout from '@/Layouts/ManagementLayout.vue';
 import CategoryService from '@/Services/CategoryService';
 import useManager from '@/Composables/useManager';
-import { CirclePlus, Search , Document, DocumentAdd, ArrowDown } from '@element-plus/icons-vue'; 
+import { CirclePlus, Search , Document, DocumentAdd, ArrowDown } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 
 const service = new CategoryService();
 const search =  ref("")
 
-const { 
-    Main, 
+const {
+    Main,
     model : category,
-    entities: categories, 
-    openModal, 
+    entities: categories,
+    openModal,
     opc,
     rules,
-    handlerSubmit, 
-    handlerDelete, 
+    handlerSubmit,
+    handlerDelete,
     handlerEdit,
-    handlerInputEnter, 
+    handlerInputEnter,
     handlerChangeStatus
  } = useManager(service);
 
@@ -60,7 +60,7 @@ const {
             </div>
         </template>
 
-        <template #content> 
+        <template #content>
             <c-table :data="categories" :model="category" :is-manager="true" width-column="70-150-400-100" v-on:onDelete="handlerDelete" v-on:onEdit="handlerEdit" :loading="opc.table">
                 <template #status="{ row }">
                     <el-switch v-model="row.status" v-on:change="handlerChangeStatus(row)"></el-switch>
@@ -68,10 +68,10 @@ const {
             </c-table>
         </template>
 
-        <template #footerContent> 
+        <template #footerContent>
             <c-modal-form title="Category form" :model="category" :show="opc.modal" :rules="rules" v-on:close="opc.modal = false" width="sm" v-on:onSubmit="handlerSubmit" :loading="opc.loading">
 
-                <template #form-content="{ data, isLoading }"> 
+                <template #form-content="{ data, isLoading }">
                     <el-form-item label="Name" prop="name">
                         <el-input v-model="data.name" placeholder="name.."></el-input>
                     </el-form-item>
@@ -84,8 +84,8 @@ const {
 
                 <template #form-actions="{ data, isLoading }">
                     <el-switch v-model="data.status" :disabled="isLoading"></el-switch>
-                </template> 
-            </c-modal-form> 
+                </template>
+            </c-modal-form>
         </template>
     </management-layout>
 </template>

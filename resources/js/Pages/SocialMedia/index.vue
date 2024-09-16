@@ -1,11 +1,11 @@
 <script setup>
 import useManager from '@/Composables/useManager';
 import ManagementLayout from '@/Layouts/ManagementLayout.vue';
-import ChargerService from '@/Services/chargerService';
+import SocialMediaService from '@/Services/SocialMediaService';
 import { CirclePlus, Search } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 
-const service = new ChargerService();
+const service = new SocialMediaService();
 const search = ref('');
 
 const { Main,
@@ -28,14 +28,14 @@ const { Main,
 
 </script>
 <template>
-    <management-layout title="Chargers" :tag="`${entities.length}`">
+    <management-layout title="Social Media" :tag="`${entities.length}`">
 
         <template #description>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum laboriosam consequuntur</p>
         </template>
 
         <template #actions>
-            <el-button type="primary" v-on:Click="openModal()" :icon="CirclePlus">Add Charger</el-button>
+            <el-button type="primary" v-on:Click="openModal()" :icon="CirclePlus">Add Social Media</el-button>
         </template>
 
 
@@ -55,12 +55,12 @@ const { Main,
         </template>
 
         <template #footerContent>
-            <c-modal-form title="Charge Form" v-on:onSubmit="handlerSubmit" :loading="opc.loading" :show="opc.modal"
+            <c-modal-form title="Social Media Form" v-on:onSubmit="handlerSubmit" :loading="opc.loading" :show="opc.modal"
                 :model="model" :rules="rules" v-on:close="opc.modal = false" width="sm">
 
                 <template #form-content="{ data, isLoading }">
                     <el-form-item label="Name" prop="name">
-                        <el-input v-model="data.name" placeholder="Type Charger" clearable></el-input>
+                        <el-input v-model="data.name" placeholder="Type Name" clearable></el-input>
                     </el-form-item>
                 </template>
 
