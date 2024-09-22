@@ -1,14 +1,15 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchasestatusController;
 use App\Http\Controllers\ProductstatusController;
-=======
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\SectorController;
->>>>>>> origin/devMarcos
+use app\Http\Controllers\CountryController;
+use app\Http\Controllers\DepartmentController;
+use app\Http\Controllers\MunicipalityController;
+use app\Http\Controllers\DistrictController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-<<<<<<< HEAD
 Route::controller(SupplierController::class)->group(function () {
     Route::get('/suppliers', 'index');
     Route::post('/suppliers', 'store');
@@ -40,7 +40,6 @@ Route::controller(ProductstatusController::class)->group(function () {
     Route::delete('/productstatuses/{id}', 'destroy');
     Route::patch('/productstatuses/{id}', 'updateStatus');
 });
-=======
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/categories', 'index')->name('categories.index');
@@ -67,4 +66,35 @@ Route::controller(SectorController::class)->group(function () {
     Route::put('/sectors/{id}', 'update')->name('sectors.update');
     Route::patch('/sectors/{id}', 'changeStatus')->name('sectors.update.status');
 });
->>>>>>> origin/devMarcos
+
+Route::controller(CountryController::class)->group(function () {
+    Route::get('/countries', 'index')->name('countries.index');
+    Route::post('/countries', 'store')->name('countries.store');
+    Route::delete('/countries/{id}', 'destroy')->name('countries.destroy');
+    Route::put('/countries/{id}', 'update')->name('countries.update');
+    Route::patch('/countries/{id}', 'updateStatus')->name('countries.update.status');
+});
+
+Route::controller(DepartmentController::class)->group(function () {
+    Route::get('/departments', 'index')->name('departments.index');
+    Route::post('/departments', 'store')->name('departments.store');
+    Route::delete('/departments/{id}', 'destroy')->name('departments.destroy');
+    Route::put('/departments/{id}', 'update')->name('departments.update');
+    Route::patch('/departments/{id}', 'updateStatus')->name('departments.update.status');
+});
+
+Route::controller(MunicipalityController::class)->group(function () {
+    Route::get('/municipalities', 'index')->name('municipalities.index');
+    Route::post('/municipalities', 'store')->name('municipalities.store');
+    Route::delete('/municipalities/{id}', 'destroy')->name('municipalities.destroy');
+    Route::put('/municipalities/{id}', 'update')->name('municipalities.update');
+    Route::patch('/municipalities/{id}', 'updateStatus')->name('municipalities.update.status');
+});
+
+Route::controller(DistrictController::class)->group(function () {
+    Route::get('/districts', 'index')->name('districts.index');
+    Route::post('/districts', 'store')->name('districts.store');
+    Route::delete('/districts/{id}', 'destroy')->name('districts.destroy');
+    Route::put('/districts/{id}', 'update')->name('districts.update');
+    Route::patch('/districts/{id}', 'updateStatus')->name('districts.update.status');
+});
