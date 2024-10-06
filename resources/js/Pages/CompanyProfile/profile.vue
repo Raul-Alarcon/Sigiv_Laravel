@@ -91,13 +91,13 @@ const { Main,
                         <el-input v-model="data.lastName" placeholder="Type last name" clearable></el-input>
                     </el-form-item>
                     <el-form-item label="Age" prop="age">
-                        <el-date-picker v-model="data.age" type="date" placeholder="Pick a date" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                        <el-date-picker v-model="data.age" type="date" placeholder="Pick a date" :teleported="false"></el-date-picker>
                     </el-form-item>
                     <el-form-item label="Date of hire" prop="dateOfHire">
-                        <el-date-picker v-model="data.dateOfHire" type="date" placeholder="Pick a date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" append-to-body></el-date-picker>
+                        <el-date-picker v-model="data.dateOfHire" type="date" placeholder="Pick a date" :teleported="false"></el-date-picker>
                     </el-form-item>
                     <el-form-item label="Termination Date" prop="terminationDate">
-                        <el-date-picker v-model="data.terminationDate" type="date" placeholder="Pick a date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" append-to-body></el-date-picker>
+                        <el-date-picker v-model="data.terminationDate" type="date" placeholder="Pick a date" :teleported="false"></el-date-picker>
                     </el-form-item>
                     <el-form-item label="Branch Office" prop="branchOffice">
                         <el-select v-model="data.branchOffice" placeholder="Pick a branch office">
