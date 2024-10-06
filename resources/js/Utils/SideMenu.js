@@ -61,6 +61,13 @@ const items = [
                 link: 'PurchaseStatus',
                 index: '2-1-2'
             }
+            ,
+            {
+                title: 'Perfil Empresa',
+                icon: 'pi pi-wave-pulse',
+                link: 'companyProfile',
+                index: '2-1-2'
+            }
           ]
         }
       ]
