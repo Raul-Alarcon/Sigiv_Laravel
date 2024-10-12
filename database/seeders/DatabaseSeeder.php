@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             MunicipalitySeeder::class,
             DistrictSeeder::class,
+            ProductStatusSeeder::class,
         ]);
 
         User::factory()->create([
