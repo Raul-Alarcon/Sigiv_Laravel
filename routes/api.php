@@ -9,6 +9,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\SocialMediaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -89,6 +90,14 @@ Route::controller(CompanyController::class)->group(function () {
     Route::put('/companies/{id}', 'update')->name('companies.update');
     Route::delete('/companies/{id}', 'destroy')->name('companies.destroy');
     Route::patch('/companies/{id}', 'updateStatus')->name('companies.update.status');
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/userCompany', 'index')->name('userCompany.index');
+    Route::post('/userCompany', 'store')->name('userCompany.store');
+    Route::put('/userCompany/{id}', 'update')->name('userCompany.update');
+    Route::delete('/userCompany/{id}', 'destroy')->name('userCompany.destroy');
+    Route::patch('/userCompany/{id}', 'updateStatus')->name('userCompany.update.status');
 });
 
 

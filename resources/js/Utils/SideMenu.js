@@ -74,8 +74,32 @@ const items = [
             link: 'campanies',
             index: '2-2-1'
           },
+
+          {
+            title: 'Gestion Clientes',
+            icon: 'pi pi-wave-pulse',
+            link: 'customers',
+            index: '2-2-2'
+          },
+
+          {
+            title: 'Gestion Empleados',
+            icon: 'pi pi-wave-pulse',
+            link: 'employee',
+            index: '2-2-2'
+          },
+
+          {
+            title: 'Gestion Usuarios',
+            icon: 'pi pi-wave-pulse',
+            link: 'users',
+            index: '2-2-2'
+          },
         ]
-      }
+      }, 
+
+       
+
     ]
   }
 ];

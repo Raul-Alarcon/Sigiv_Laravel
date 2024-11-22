@@ -1,13 +1,5 @@
 <?php
-
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SocialMediaController;
-use App\Http\Controllers\SectorController;
-use App\Http\Controllers\GenderController;
-use App\Http\Controllers\ChargeController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\PurchasestatusController;
-use App\Http\Controllers\ProductstatusController;
+ 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -47,6 +39,14 @@ Route::middleware([
     Route::get('/suppliers', function () { return Inertia::render('Supplier/index'); })->name('suppliers.page');
 
     Route::get('/campanies', function () { return Inertia::render('Company/index'); })->name('company.page');
+    Route::get('/customers', function () { 
+        return Inertia::render('Administration/customers'); })->name('customers.page');
+
+    Route::get('/employee', function () { 
+            return Inertia::render('Administration/Employee'); })->name('employee.page');
+            
+    Route::get('/users', function () { 
+        return Inertia::render('Administration/Users'); })->name('users.page');
 });
 
 
