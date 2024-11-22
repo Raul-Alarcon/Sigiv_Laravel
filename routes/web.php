@@ -46,7 +46,7 @@ Route::middleware([
 
     Route::get('/suppliers', function () { return Inertia::render('Supplier/index'); })->name('suppliers.page');
 
-    // Route::get('/charges', function () { return Inertia::render('Charge/index'); })->name('charges.page');
+    Route::get('/campanies', function () { return Inertia::render('Company/index'); })->name('company.page');
 });
 
 

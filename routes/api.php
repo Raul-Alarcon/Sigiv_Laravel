@@ -5,6 +5,7 @@ use App\Http\Controllers\PurchasestatusController;
 use App\Http\Controllers\ProductstatusController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargeController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\SocialMediaController;
@@ -79,6 +80,15 @@ Route::controller(SocialMediaController::class)->group(function () {
     Route::post('/socialmedia', 'store')->name('socialmedia.store');
     Route::put('/socialmedia/{id}', 'update')->name('socialmedia.update');
     Route::delete('/socialmedia/{id}', 'destroy')->name('socialmedia.destroy');
+});
+
+
+Route::controller(CompanyController::class)->group(function () {
+    Route::get('/companies', 'index')->name('companies.index');
+    Route::post('/companies', 'store')->name('companies.store');
+    Route::put('/companies/{id}', 'update')->name('companies.update');
+    Route::delete('/companies/{id}', 'destroy')->name('companies.destroy');
+    Route::patch('/companies/{id}', 'updateStatus')->name('companies.update.status');
 });
 
 
