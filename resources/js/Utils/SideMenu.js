@@ -86,14 +86,14 @@ const items = [
             title: 'Gestion Empleados',
             icon: 'pi pi-wave-pulse',
             link: 'employee',
-            index: '2-2-2'
+            index: '2-2-3'
           },
 
           {
             title: 'Gestion Usuarios',
             icon: 'pi pi-wave-pulse',
             link: 'users',
-            index: '2-2-2'
+            index: '2-2-4'
           },
         ]
       }, 
