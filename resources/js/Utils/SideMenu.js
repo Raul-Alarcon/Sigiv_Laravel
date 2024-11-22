@@ -31,35 +31,35 @@ const items = [
             link: 'generes',
             index: '2-1-3'
           },
-          {
-            title: 'Cargos',
-            icon: 'pi pi-wave-pulse',
-            link: 'Charge',
-            index: '2-1-4'
-          },
+          // {
+          //   title: 'Cargos',
+          //   icon: 'pi pi-wave-pulse',
+          //   link: 'Charge',
+          //   index: '2-1-4'
+          // },
           {
             title: 'Suppliers',
             icon: 'pi pi-wave-pulse',
             link: 'suppliers',
-            index: '2-1-5'
+            index: '2-1-4'
           },
           {
             title: 'Social Media',
             icon: 'pi pi-wave-pulse',
             link: 'socialmedia',
-            index: '2-1-6'
+            index: '2-1-5'
           },
           {
             title: 'Estado de Producto',
             icon: 'pi pi-wave-pulse',
             link: 'ProductStatus',
-            index: '2-1-7'
+            index: '2-1-6'
           },
           {
             title: 'Estado de Compra',
             icon: 'pi pi-wave-pulse',
             link: 'PurchaseStatus',
-            index: '2-1-8'
+            index: '2-1-7'
           }
         ]
       },
@@ -88,12 +88,17 @@ const items = [
             link: 'employee',
             index: '2-2-3'
           },
-
+          {
+            title: 'Gestion Cargos',
+            icon: 'pi pi-wave-pulse',
+            link: 'charge',
+            index: '2-2-4'
+          }, 
           {
             title: 'Gestion Usuarios',
             icon: 'pi pi-wave-pulse',
             link: 'users',
-            index: '2-2-4'
+            index: '2-2-5'
           },
         ]
       }, 

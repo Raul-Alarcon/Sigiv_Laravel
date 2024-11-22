@@ -22,7 +22,7 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/Charge', function () { return Inertia::render('Charge/index'); })->name('charge.page');
+    // Route::get('/Charge', function () { return Inertia::render('Charge/index'); })->name('charge.page');
 
     Route::get('/ProductStatus', function () { return Inertia::render('ProductStatus/index'); })->name('productstatus.page');
 
@@ -47,6 +47,10 @@ Route::middleware([
             
     Route::get('/users', function () { 
         return Inertia::render('Administration/Users'); })->name('users.page');
+
+
+    Route::get('/charge', function () { 
+        return Inertia::render('Administration/Charge'); })->name('charge.page');  
 });
 
 
