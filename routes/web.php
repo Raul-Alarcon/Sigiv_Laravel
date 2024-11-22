@@ -36,7 +36,7 @@ Route::middleware([
 
     Route::get('/socialmedia', function () { return Inertia::render('SocialMedia/index'); })->name('socialmedia.page');
 
-    Route::get('/suppliers', function () { return Inertia::render('Supplier/index'); })->name('suppliers.page');
+ 
 
     Route::get('/campanies', function () { return Inertia::render('Company/index'); })->name('company.page');
     Route::get('/customers', function () { 
@@ -50,7 +50,11 @@ Route::middleware([
 
 
     Route::get('/charge', function () { 
-        return Inertia::render('Administration/Charge'); })->name('charge.page');  
+        return Inertia::render('Administration/Charge'); })->name('charge.page');
+
+    Route::get('/supplier', function () { 
+        return Inertia::render('Administration/Supplier'); })->name('supplier.page');  
+
 });
 
 

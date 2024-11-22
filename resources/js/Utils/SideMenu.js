@@ -30,19 +30,7 @@ const items = [
             icon: 'pi pi-wave-pulse',
             link: 'generes',
             index: '2-1-3'
-          },
-          // {
-          //   title: 'Cargos',
-          //   icon: 'pi pi-wave-pulse',
-          //   link: 'Charge',
-          //   index: '2-1-4'
-          // },
-          {
-            title: 'Suppliers',
-            icon: 'pi pi-wave-pulse',
-            link: 'suppliers',
-            index: '2-1-4'
-          },
+          },  
           {
             title: 'Social Media',
             icon: 'pi pi-wave-pulse',
@@ -95,10 +83,16 @@ const items = [
             index: '2-2-4'
           }, 
           {
+            title: 'Gestion Proveedores',
+            icon: 'pi pi-wave-pulse',
+            link: 'supplier',
+            index: '2-2-5'
+          }, 
+          {
             title: 'Gestion Usuarios',
             icon: 'pi pi-wave-pulse',
             link: 'users',
-            index: '2-2-5'
+            index: '2-2-6'
           },
         ]
       }, 
