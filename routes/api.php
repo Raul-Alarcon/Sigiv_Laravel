@@ -17,6 +17,15 @@ use App\Http\Controllers\GenderController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreBranchController;
+use App\Http\Controllers\ProductStockController;
+use App\Http\Controllers\OrderStatusController;
+
+use App\Http\Controllers\FileController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -165,4 +174,46 @@ Route::controller(UserController::class)->group(function () {
     Route::patch('/userCompany/{id}', 'updateStatus')->name('userCompany.update.status');
 });
 
+Route::controller(CustomerController::class)->group(function () {
+    Route::get('/customers', 'index')->name('customers.index');
+    Route::post('/customers', 'store')->name('customers.store');
+    Route::put('/customers/{id}', 'update')->name('customers.update');
+    Route::delete('/customers/{id}', 'destroy')->name('customers.destroy');
+});
 
+Route::controller(EmployeeController::class)->group(function () {
+    Route::get('/employees', 'index')->name('employees.index');
+    Route::post('/employees', 'store')->name('employees.store');
+    Route::put('/employees/{id}', 'update')->name('employees.update');
+    Route::delete('/employees/{id}', 'destroy')->name('employees.destroy');
+});
+
+Route::controller(ProductController::class)->group(function () {
+    Route::get('/products', 'index')->name('products.index');
+    Route::post('/products', 'store')->name('products.store');
+    Route::put('/products/{id}', 'update')->name('products.update');
+    Route::delete('/products/{id}', 'destroy')->name('products.destroy');
+});
+
+Route::controller(StoreBranchController::class)->group(function () {
+    Route::get('/storeBranches', 'index')->name('storeBranches.index');
+    Route::post('/storeBranches', 'store')->name('storeBranches.store');
+    Route::put('/storeBranches/{id}', 'update')->name('storeBranches.update');
+    Route::delete('/storeBranches/{id}', 'destroy')->name('storeBranches.destroy');
+});
+
+Route::controller(ProductStockController::class)->group(function () {
+    Route::get('/productStocks', 'index')->name('productStocks.index');
+    Route::post('/productStocks', 'store')->name('productStocks.store');
+    Route::put('/productStocks/{id}', 'update')->name('productStocks.update');
+    Route::delete('/productStocks/{id}', 'destroy')->name('productStocks.destroy');
+});
+
+Route::controller(OrderStatusController::class)->group(function () {
+    Route::get('/orderStatuses', 'index')->name('orderStatuses.index');
+    Route::post('/orderStatuses', 'store')->name('orderStatuses.store');
+    Route::put('/orderStatuses/{id}', 'update')->name('orderStatuses.update');
+    Route::delete('/orderStatuses/{id}', 'destroy')->name('orderStatuses.destroy');
+});
+
+Route::post('/upload', [FileController::class, 'upload']);
