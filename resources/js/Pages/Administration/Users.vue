@@ -1,44 +1,43 @@
-<script setup>
+<script setup> 
 import ManagementLayout from '@/Layouts/ManagementLayout.vue';
-import CategoryService from '@/Services/CategoryService';
-import useManager from '@/Composables/useManager';
 import { CirclePlus, Search , Document, DocumentAdd, ArrowDown } from '@element-plus/icons-vue';
+import useManager from '@/Composables/useManager';
+import UserCompanyService from '@/Services/UserCompanyService';
 import { ref } from 'vue';
 
-const service = new CategoryService();
+const service = new UserCompanyService();
 const search =  ref("")
 
-const {
-    Main,
-    model : category,
-    entities: categories,
-    openModal,
+const { Main,
     opc,
-    rules,
-    handlerSubmit,
+    entities: users,
     handlerDelete,
     handlerEdit,
+    model:user,
+    rules,
+    handlerSubmit,
     handlerInputEnter,
-    handlerChangeStatus
- } = useManager(service);
+    handlerChangeStatus,
+    openModal } = useManager(service);
 
 
-( async () => {
+(async () => {
     await Main();
 })();
 
+</script> 
 
-
-</script>
 <template>
-    <management-layout title="Categories" :tag="`${categories.length} count`">
-        <template #description>
-            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis sed</span>
+    <management-layout title="Users" :tag="`${users.length} count`">
+        <template #description> 
+            asdkmlkjn
         </template>
+
 
         <template #actions>
-            <el-button type="primary" :icon="CirclePlus" v-on:click="openModal">Add Category</el-button>
+            <el-button type="primary" :icon="CirclePlus" v-on:click="openModal">Add User</el-button>
         </template>
+
 
         <template #headerContent>
             <el-dropdown placement="bottom" trigger="click">
@@ -54,6 +53,7 @@ const {
                 </template>
             </el-dropdown>
         </template>
+
         <template #searchContent>
             <div class="md:w-80 w-full">
                 <el-input v-model="search" style="width: 100%" v-on:change="handlerInputEnter" placeholder="Search" :prefix-icon="Search" clearable/>
@@ -61,31 +61,34 @@ const {
         </template>
 
         <template #content>
-            <c-table :data="categories" :model="category" :is-manager="true" width-column="70-150-400-100" v-on:onDelete="handlerDelete" v-on:onEdit="handlerEdit" :loading="opc.table">
+            <c-table :data="users" v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete" :is-manager="true"
+                :model="user" width-column="70-400-400" :loading="opc.table">
                 <template #status="{ row }">
                     <el-switch v-model="row.status" v-on:change="handlerChangeStatus(row)"></el-switch>
                 </template>
             </c-table>
-        </template>
-
+        </template> 
         <template #footerContent>
-            <c-modal-form title="Category form" :model="category" :show="opc.modal" :rules="rules" v-on:close="opc.modal = false" width="sm" v-on:onSubmit="handlerSubmit" :loading="opc.loading">
+
+            <c-modal-form title="User company Form" v-on:onSubmit="handlerSubmit" :loading="opc.loading" :show="opc.modal"
+                :model="user" :rules="rules" v-on:close="opc.modal = false" width="sm">
 
                 <template #form-content="{ data, isLoading }">
                     <el-form-item label="Name" prop="name">
-                        <el-input v-model="data.name" placeholder="name.."></el-input>
+                        <el-input v-model="data.name" placeholder="Type name" clearable></el-input>
                     </el-form-item>
 
-                    <el-form-item label="Description" prop="description">
-                        <el-input v-model="data.description" placeholder="description" type="textarea"
-                            :rows="5"></el-input>
+                    <el-form-item label="Email" prop="email">
+                        <el-input v-model="data.email" placeholder="Type email" clearable></el-input>
                     </el-form-item>
-                </template>
 
-                <template #form-actions="{ data, isLoading }">
-                    <el-switch v-model="data.status" :disabled="isLoading"></el-switch>
-                </template>
+                    <el-form-item label="Password" prop="password">
+                        <el-input v-model="data.password" placeholder="Type password" clearable></el-input>
+                    </el-form-item>
+                </template> 
             </c-modal-form>
+
         </template>
+
     </management-layout>
 </template>

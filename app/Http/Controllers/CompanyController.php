@@ -2,47 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\GenderService;
-use App\Models\Gender;
+use App\Services\CompanyService;
 use Illuminate\Http\Request;
 
-class GenderController extends Controller
-{
-
-    protected $genderService;
-    public function __construct(GenderService $genderService)
+class CompanyController extends Controller
+{ 
+    protected $companyService;
+    public function __construct(CompanyService $companyService)
     {
-        $this->genderService = $genderService;
+        $this->companyService = $companyService;
     }
 
     public function index(Request $request){
         $paginate = $request->query('paginate') ?? 10; 
         $search = $request->query('search') ?? null; 
-        $data = $this->genderService->getAll($paginate, $search, ['name']);
+        $data = $this->companyService->getAll($paginate, $search, ['name', 'nrc','email']);
         return response()->json($data, 200); 
     }  
 
     public function store(Request $request)
     {
-        $data = $this->genderService->create($request);
+        $data = $this->companyService->create($request);
         return response()->json($data, 201);
     } 
 
     public function update(Request $request, string $id)
     {
-        $data = $this->genderService->update($request, $id);
+        $data = $this->companyService->update($request, $id);
         return response()->json($data, 200);
     } 
 
     public function updateStatus(string $id)
     {
-        $this->genderService->updateStatus($id);
+        $this->companyService->updateStatus($id);
         return response()->json(null, 204);
     }
 
     public function destroy(string $id)
     {
-        $this->genderService->destroy($id);
+        $this->companyService->destroy($id);
         return response()->json(null, 204);
     }
 }

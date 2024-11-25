@@ -14,5 +14,9 @@ class Gender extends Model
         'status',
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     public $timestamps = true;
 }

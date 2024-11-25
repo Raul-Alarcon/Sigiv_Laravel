@@ -1,9 +1,8 @@
-import BaseService from "./BaseService.js";
+import BaseService from './BaseService';
 
-export default class SectorService extends BaseService{
-
-    constructor(){
-        super('api/sectors');
+export default class ProductStatusService extends BaseService {
+    constructor() {
+        super('api/productstatus');
 
         this.model = {
             id: 0,

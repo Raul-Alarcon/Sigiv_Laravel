@@ -18,4 +18,6 @@ class Purchasestatus extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    public $timestamps = true;
 }

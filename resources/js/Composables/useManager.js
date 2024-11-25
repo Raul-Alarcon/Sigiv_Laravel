@@ -34,14 +34,14 @@ export default function useManager(service) {
     const handlerUpdate = async (elForm) => {
         try {
             opc.loading = true;
-            let sector = await service.update(model.id, model);
-            let index = entities.value.findIndex((sector) => sector.id === model.id);
-            entities.value[index] = sector;
+            let entity = await service.update(model.id, model);
+            let index = entities.value.findIndex((entity) => entity.id === model.id);
+            entities.value[index] = entity;
             opc.modal = false;
             opc.loading = false;
         } catch (error) {
             service.opcElMessage.type = 'error';
-            service.opcElMessage.message = error.message;
+            service.opcElMessage.message = error.message; 
         }
 
         opc.modal = false;

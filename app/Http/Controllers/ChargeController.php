@@ -3,50 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\Models\Charge;
+use App\Services\ChargeService;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Cast\String_;
 
 class ChargeController extends Controller
 { 
-    public function index()
+    protected $chargeService;
+    public function __construct(ChargeService $chargeService)
     {
-        $charges = Charge::orderBy("created_at", "desc")->paginate(10);
-        return response()->json($charges, 200);
+        $this->chargeService = $chargeService;
     }
- 
+
+    public function index(Request $request){
+        $paginate = $request->query('paginate') ?? 10; 
+        $search = $request->query('search') ?? null; 
+        $data = $this->chargeService->getAll($paginate, $search, ['name']);
+        return response()->json($data, 200); 
+    }  
+
     public function store(Request $request)
     {
-        $charge = Charge::create($request->all());
-        return response()->json($charge, 201);
-    }
- 
- 
-    public function update(String $id, Request $request)
+        $data = $this->chargeService->create($request);
+        return response()->json($data, 201);
+    } 
+
+    public function update(Request $request, string $id)
     {
-        $charge = Charge::findOrFail($id);
-        if ($charge != null) {
-            $charge->update($request->all());
-            return response()->json($charge, 200);
-        }
-        return response()->json(["message" => "The charge I requested was not found or does not exist"], 404);
+        $data = $this->chargeService->update($request, $id);
+        return response()->json($data, 200);
+    } 
+
+    public function updateStatus(string $id)
+    {
+        $this->chargeService->updateStatus($id);
+        return response()->json(null, 204);
     }
 
-
-    public function updateStatus(String $id)
+    public function destroy(string $id)
     {
-        $charge = Charge::findOrFail($id);
-        if ($charge != null) {
-            $charge->status = !$charge->status;
-            $charge->save();
-            return response()->json(null, 204);
-        }
-        return response()->json(["message" => "The charge I requested was not found or does not exist"], 404);
-    }
- 
-    public function destroy(String $id)
-    {
-        $charge = Charge::findOrFail($id);
-        $charge->delete();
-        return response()->json(["message" => "Charge successfully deleted"], 204);
+        $this->chargeService->destroy($id);
+        return response()->json(null, 204);
     }
 }

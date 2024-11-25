@@ -5,22 +5,33 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Supplier extends Model
+class Company extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
+        'nrc',
         'description',
-        'contact',
-        'phone',
         'email',
+        'logo',
+        'website',
+        'fundation_date',
         'status',
+        'sector_id'
     ];
 
     protected $casts = [
-        'status' => 'boolean',
+        'fundation_date' => 'date',
+        'status' => 'boolean'
     ];
+
+    // protected $with = ['sector'];
+
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
 
     public $timestamps = true; 
 }

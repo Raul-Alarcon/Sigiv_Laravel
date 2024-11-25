@@ -3,46 +3,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Supplier;
 use App\Http\Requests\SuppliersRequest;
-use Illuminate\Http\JsonResponse;
+use App\Services\SupplierService; 
+use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    public function index(): JsonResponse
+    protected $supplierService;
+    public function __construct(SupplierService $supplierService)
     {
-        $suppliers = Supplier::orderBy("created_at", "desc")->paginate(10);
-        return response()->json($suppliers, 200);
+        $this->supplierService = $supplierService;
     }
 
-    public function store(SuppliersRequest $request): JsonResponse
-    {
-        $validatedData = $request->validated();
+    public function index(Request $request){
+        $paginate = $request->query('paginate') ?? 10; 
+        $search = $request->query('search') ?? null; 
+        $data = $this->supplierService->getAll($paginate, $search, ['name', 'description', 'email']);
+        return response()->json($data, 200); 
+    }  
 
-        $supplier = Supplier::create($validatedData);
-        return response()->json($supplier, 201);
+    public function store(Request $request)
+    {
+        $data = $this->supplierService->create($request);
+        return response()->json($data, 201);
+    } 
+
+    public function update(Request $request, string $id)
+    {
+        $data = $this->supplierService->update($request, $id);
+        return response()->json($data, 200);
+    } 
+
+    public function updateStatus(string $id)
+    {
+        $this->supplierService->updateStatus($id);
+        return response()->json(null, 204);
     }
 
-    public function update(string $id, SuppliersRequest $request): JsonResponse
+    public function destroy(string $id)
     {
-        $supplier = Supplier::findOrFail($id);
-        $supplier->update($request->validated());
-
-        return response()->json($supplier, 200);
-    }
-
-    public function destroy(string $id): JsonResponse
-    {
-        $supplier = Supplier::findOrFail($id);
-        $supplier->delete();
-
-        return response()->json(["message" => "Supplier deleted successfully"], 204);
-    }
-
-    public function updateStatus(string $id): JsonResponse
-    {
-        $supplier = Supplier::findOrFail($id);
-        $supplier->status = !$supplier->status;
-        $supplier->save();
-
-        return response()->json(["message" => "Supplier status updated successfully"], 204);
+        $this->supplierService->destroy($id);
+        return response()->json(null, 204);
     }
 }

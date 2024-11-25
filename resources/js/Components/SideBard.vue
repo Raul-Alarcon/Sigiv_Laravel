@@ -38,8 +38,8 @@ const click = (param) => {
 
 </script>
 <template>
-    <aside class="min-h-screen">
-        <el-menu :collapse="isCollapse" class="el-menu-vertical-demo h-full w-72" default-active="1">
+    <aside class="min-h-screen"> 
+        <el-menu :collapse="isCollapse" class="el-menu-vertical-demo h-full w-72 overflow-y-auto" default-active="1">
             <!-- Iteración de los elementos principales -->
             <template v-for="(item, index) in items" :key="index">
                 <!-- Si el elemento tiene subelementos, renderiza un submenú -->
