@@ -34,9 +34,7 @@ Route::middleware([
 
     Route::get('/sectors', function () { return Inertia::render('Sector/index'); })->name('sectors.page');
 
-    Route::get('/socialmedia', function () { return Inertia::render('SocialMedia/index'); })->name('socialmedia.page');
-
- 
+    Route::get('/socialmedia', function () { return Inertia::render('SocialMedia/index'); })->name('socialmedia.page'); 
 
     Route::get('/campanies', function () { return Inertia::render('Company/index'); })->name('company.page');
     Route::get('/customers', function () { 
@@ -54,6 +52,24 @@ Route::middleware([
 
     Route::get('/supplier', function () { 
         return Inertia::render('Administration/Supplier'); })->name('supplier.page');  
+
+    
+    Route::get('/products', function () { 
+            return Inertia::render('Inventory/Products'); })->name('products.page'); 
+
+    Route::get('/warehouse-request', function () { 
+            return Inertia::render('Inventory/WarehouseRequest'); 
+    })->name('warehouse-request.page');
+                
+    Route::get('/warehouse', function () { 
+        return Inertia::render('Inventory/Warehouse'); 
+    })->name('warehouse.page');
+    // Route::prefix("Inventory")
+    // ->name("inventory.")
+    // ->group(function(){
+    //     Route::get('/products', function () { 
+    //         return Inertia::render('Inventory/Products'); })->name('products.page'); 
+    // });
 
 });
 

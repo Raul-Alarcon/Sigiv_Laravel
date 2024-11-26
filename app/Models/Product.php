@@ -19,5 +19,7 @@ class Product extends Model
         'supplier_id',
     ];
 
+    
+
     public $timnestamps = true;
 }

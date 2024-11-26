@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\ProductService;
 use App\Http\Requests\ProductRequest;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -38,5 +39,13 @@ class ProductController extends Controller
     {
         $this->productService->destroy($id);
         return response()->json(null, 204);
+    }
+
+    public function getSupplier() {   
+        $supplier = Supplier::where('status', true)
+            ->select(['id', 'name'])
+            ->get();
+
+        return response()->json($supplier, 200); 
     }
 }

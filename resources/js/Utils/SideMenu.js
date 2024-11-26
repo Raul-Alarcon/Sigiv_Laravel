@@ -30,7 +30,7 @@ const items = [
             icon: 'pi pi-wave-pulse',
             link: 'generes',
             index: '2-1-3'
-          },  
+          },
           {
             title: 'Social Media',
             icon: 'pi pi-wave-pulse',
@@ -51,6 +51,8 @@ const items = [
           }
         ]
       },
+
+
       {
         title: 'Empresa',
         icon: 'pi pi-th-large',
@@ -81,13 +83,13 @@ const items = [
             icon: 'pi pi-wave-pulse',
             link: 'charge',
             index: '2-2-4'
-          }, 
+          },
           {
             title: 'Gestion Proveedores',
             icon: 'pi pi-wave-pulse',
             link: 'supplier',
             index: '2-2-5'
-          }, 
+          },
           {
             title: 'Gestion Usuarios',
             icon: 'pi pi-wave-pulse',
@@ -95,12 +97,36 @@ const items = [
             index: '2-2-6'
           },
         ]
-      }, 
-
-       
-
+      },
     ]
-  }
+  },
+
+  {
+    title: 'Inventario',
+    index: '3',
+    items: [
+      {
+        title: 'Gestion de productos',
+        icon: 'pi pi-th-large',
+        index: '3-1',
+        link: 'products',
+      },
+      {
+        title: 'Gestion de solicitudes',
+        icon: 'pi pi-th-large',
+        index: '3-2',
+        link: 'warehouse-request',
+      },
+      {
+        title: 'Bodega',
+        icon: 'pi pi-th-large',
+        index: '3-3',
+        link: 'warehouse',
+      }
+    ]
+  },
+
+
 ];
 
 export { items };

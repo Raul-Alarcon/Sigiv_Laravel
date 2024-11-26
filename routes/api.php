@@ -7,11 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\SectorController;
-
-use app\Http\Controllers\CountryController;
-use app\Http\Controllers\DepartmentController;
-use app\Http\Controllers\MunicipalityController;
-use app\Http\Controllers\DistrictController;
+ 
 
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\SocialMediaController;
@@ -86,37 +82,37 @@ Route::controller(SectorController::class)->group(function () {
 });
 
 
-Route::controller(CountryController::class)->group(function () {
-    Route::get('/countries', 'index')->name('countries.index');
-    Route::post('/countries', 'store')->name('countries.store');
-    Route::delete('/countries/{id}', 'destroy')->name('countries.destroy');
-    Route::put('/countries/{id}', 'update')->name('countries.update');
-    Route::patch('/countries/{id}', 'updateStatus')->name('countries.update.status');
-});
+// Route::controller(CountryController::class)->group(function () {
+//     Route::get('/countries', 'index')->name('countries.index');
+//     Route::post('/countries', 'store')->name('countries.store');
+//     Route::delete('/countries/{id}', 'destroy')->name('countries.destroy');
+//     Route::put('/countries/{id}', 'update')->name('countries.update');
+//     Route::patch('/countries/{id}', 'updateStatus')->name('countries.update.status');
+// });
 
-Route::controller(DepartmentController::class)->group(function () {
-    Route::get('/departments', 'index')->name('departments.index');
-    Route::post('/departments', 'store')->name('departments.store');
-    Route::delete('/departments/{id}', 'destroy')->name('departments.destroy');
-    Route::put('/departments/{id}', 'update')->name('departments.update');
-    Route::patch('/departments/{id}', 'updateStatus')->name('departments.update.status');
-});
+// Route::controller(DepartmentController::class)->group(function () {
+//     Route::get('/departments', 'index')->name('departments.index');
+//     Route::post('/departments', 'store')->name('departments.store');
+//     Route::delete('/departments/{id}', 'destroy')->name('departments.destroy');
+//     Route::put('/departments/{id}', 'update')->name('departments.update');
+//     Route::patch('/departments/{id}', 'updateStatus')->name('departments.update.status');
+// });
 
-Route::controller(MunicipalityController::class)->group(function () {
-    Route::get('/municipalities', 'index')->name('municipalities.index');
-    Route::post('/municipalities', 'store')->name('municipalities.store');
-    Route::delete('/municipalities/{id}', 'destroy')->name('municipalities.destroy');
-    Route::put('/municipalities/{id}', 'update')->name('municipalities.update');
-    Route::patch('/municipalities/{id}', 'updateStatus')->name('municipalities.update.status');
-});
+// Route::controller(MunicipalityController::class)->group(function () {
+//     Route::get('/municipalities', 'index')->name('municipalities.index');
+//     Route::post('/municipalities', 'store')->name('municipalities.store');
+//     Route::delete('/municipalities/{id}', 'destroy')->name('municipalities.destroy');
+//     Route::put('/municipalities/{id}', 'update')->name('municipalities.update');
+//     Route::patch('/municipalities/{id}', 'updateStatus')->name('municipalities.update.status');
+// });
 
-Route::controller(DistrictController::class)->group(function () {
-    Route::get('/districts', 'index')->name('districts.index');
-    Route::post('/districts', 'store')->name('districts.store');
-    Route::delete('/districts/{id}', 'destroy')->name('districts.destroy');
-    Route::put('/districts/{id}', 'update')->name('districts.update');
-    Route::patch('/districts/{id}', 'updateStatus')->name('districts.update.status');
-});
+// Route::controller(DistrictController::class)->group(function () {
+//     Route::get('/districts', 'index')->name('districts.index');
+//     Route::post('/districts', 'store')->name('districts.store');
+//     Route::delete('/districts/{id}', 'destroy')->name('districts.destroy');
+//     Route::put('/districts/{id}', 'update')->name('districts.update');
+//     Route::patch('/districts/{id}', 'updateStatus')->name('districts.update.status');
+// });
 
 Route::controller(GenderController::class)->group(function () {
     Route::get('/generes', 'index')->name('generes.index');
@@ -190,6 +186,7 @@ Route::controller(EmployeeController::class)->group(function () {
 
 Route::controller(ProductController::class)->group(function () {
     Route::get('/products', 'index')->name('products.index');
+    Route::get('/products', 'getSupplier')->name('products.suppliers.service');
     Route::post('/products', 'store')->name('products.store');
     Route::put('/products/{id}', 'update')->name('products.update');
     Route::delete('/products/{id}', 'destroy')->name('products.destroy');
