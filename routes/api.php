@@ -23,6 +23,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreBranchController;
 use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDetailController;
+
+use App\Http\Controllers\ApplicationStatusController;
 
 use App\Http\Controllers\FileController;
 
@@ -193,6 +197,8 @@ Route::controller(ProductController::class)->group(function () {
     Route::post('/products', 'store')->name('products.store');
     Route::put('/products/{id}', 'update')->name('products.update');
     Route::delete('/products/{id}', 'destroy')->name('products.destroy');
+    Route::patch('/products/{id}', 'updateStatus')->name('products.update.status');
+    Route::get('/products/stock', 'getProductsByStock')->name('products.stock');
 });
 
 Route::controller(StoreBranchController::class)->group(function () {
@@ -214,6 +220,28 @@ Route::controller(OrderStatusController::class)->group(function () {
     Route::post('/orderStatuses', 'store')->name('orderStatuses.store');
     Route::put('/orderStatuses/{id}', 'update')->name('orderStatuses.update');
     Route::delete('/orderStatuses/{id}', 'destroy')->name('orderStatuses.destroy');
+});
+
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/orders', 'index')->name('orders.index');
+    Route::post('/orders', 'store')->name('orders.store');
+    Route::put('/orders/{id}', 'update')->name('orders.update');
+    Route::delete('/orders/{id}', 'destroy')->name('orders.destroy');
+    Route::patch('/orders/{id}', 'updateStatus')->name('orders.update.status');
+});
+
+Route::controller(OrderDetailController::class)->group(function () {
+    Route::get('/orderDetails', 'index')->name('orderDetails.index');
+    Route::post('/orderDetails', 'store')->name('orderDetails.store');
+    Route::put('/orderDetails/{id}', 'update')->name('orderDetails.update');
+    Route::delete('/orderDetails/{id}', 'destroy')->name('orderDetails.destroy');
+});
+
+Route::controller(ApplicationStatusController::class)->group(function () {
+    Route::get('/applicationStatuses', 'index')->name('applicationStatuses.index');
+    Route::post('/applicationStatuses', 'store')->name('applicationStatuses.store');
+    Route::put('/applicationStatuses/{id}', 'update')->name('applicationStatuses.update');
+    Route::delete('/applicationStatuses/{id}', 'destroy')->name('applicationStatuses.destroy');
 });
 
 Route::post('/upload', [FileController::class, 'upload']);
