@@ -21,4 +21,9 @@ class Productstatus extends Model
 
     public $timestamps = true;
 
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'productstatus_id');
+    }
+
 }

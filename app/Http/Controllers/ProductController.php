@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\ProductService;
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class ProductController extends Controller
     {
         $paginate = request()->query('paginate') ?? 10;
         $search = request()->query('search') ?? null;
-        $data = $this->productService->getAll($paginate, $search, ['name', 'price']);
+        $data = $this->productService->getAll($paginate, $search, ['name', 'description',  'price']);
         return response()->json($data, 200);
     }
 
@@ -76,5 +77,13 @@ class ProductController extends Controller
             ->get();
 
         return response()->json($supplier, 200); 
+    }
+
+    public function getCategories(){
+        $categories = Category::where('status', true)
+            ->select(['id', 'name'])
+            ->get();
+
+        return response()->json($categories, 200);
     }
 }

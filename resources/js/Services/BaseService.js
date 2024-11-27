@@ -11,6 +11,7 @@ export default class BaseService {
             message: 'Successfully',
             type: 'success'
         }
+        this.axios = axios
     }
 
     async getAll(paginate = 10) {

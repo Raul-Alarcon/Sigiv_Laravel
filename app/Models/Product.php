@@ -27,4 +27,18 @@ class Product extends Model
     {
         return $this->hasOne(ProductStock::class, 'products_id');
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+    public function productStatus()
+    {
+        return $this->belongsTo(Productstatus::class, 'productstatus_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

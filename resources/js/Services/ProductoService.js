@@ -2,7 +2,7 @@ import BaseService from "./BaseService.js";
 
 export default class ProductService extends BaseService {
     constructor() {
-        super('api/producto');
+        super('api/products');
 
             this.model = {
                 name: '', 
@@ -60,5 +60,16 @@ export default class ProductService extends BaseService {
         
     }
 
+    async getCategories() { 
+        let responce = await axios.get(`${this.urlApi}/categories`);
+        if (responce.status != 200) throw new Error('Error loading data');
+        return responce.data;
+    }
+    
+    async getSuppliers() { 
+        let responce = await axios.get(`${this.urlApi}/suppliers`);
+        if (responce.status != 200) throw new Error('Error loading data');
+        return responce.data;
+    }
     
 }

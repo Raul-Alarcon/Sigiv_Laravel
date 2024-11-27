@@ -2,6 +2,7 @@
 import ManagementLayout from '@/Layouts/ManagementLayout.vue';
 import { CirclePlus, Search, Document, DocumentAdd, ArrowDown } from '@element-plus/icons-vue';
 import ProductService from '@/Services/ProductoService';
+import useManager from '@/Composables/useManager';
 import { reactive, ref } from 'vue'; 
 import userBarCode from '@/Composables/userBarCode';
 
@@ -10,6 +11,9 @@ const showModal = ref(false);
 const formRef = ref();
 const barcode = ref('');
 
+const categories = ref([]);
+const suppliers = ref([]);
+
 const {
     generateBarCode,
     downloadBarCode,
@@ -17,10 +21,25 @@ const {
 } = userBarCode(barcode);
 
 const {
-    model,
-    rules } = service;
+    model: Product,
+    entities: Products,
+    Main,
+    opc, 
+    rules } = useManager(service);
+ 
 
-const Product = reactive({ ...model })
+
+( async () => {
+    try {
+        await Main(); 
+        categories.value = await service.getCategories();
+        suppliers.value = await service.getSuppliers();
+    } catch (error) {
+        console.log(error);
+    } 
+})();
+
+ 
 
 
 const handlerModal = () => {
@@ -59,6 +78,8 @@ const handlerPrintCode = (code, productName) => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolore quaerat voluptate sunt delectus,
             reprehenderit quae dicta. Sit provident perferendis quibusdam adipisci reiciendis et in dolor numquam,
             tempora blanditiis expedita!
+
+            {{ Products }}
         </template>
 
         <template #actions>
@@ -89,7 +110,10 @@ const handlerPrintCode = (code, productName) => {
         </template>
 
         <template #content>
-            <label>Tabla de contenido</label>
+            <!-- v-on:onEdit="handlerEdit" v-on:onDelete="handlerDelete"  -->
+            <c-table :data="Products" :is-manager="true"
+                :model="Product" width-column="70-400-400" :loading="opc.table"> 
+            </c-table>
         </template>
 
         <template #footerContent>
@@ -106,13 +130,31 @@ const handlerPrintCode = (code, productName) => {
 
                         <div class="md:col-span-2">
                             <el-form-item label="Category" prop="category_id">
-                                <el-input v-model="Product.category_id"></el-input>
+
+                                <el-select v-model="Product.category_id" placeholder="Please select a category">
+                                    <el-option
+                                        v-for="category in categories"
+                                        :key="category.id"
+                                        :label="category.name"
+                                        :value="category.id"
+                                    />
+                                </el-select>
+
+                                <!-- <el-input v-model="Product.category_id"></el-input> -->
                             </el-form-item>
                         </div>
 
                         <div class="md:col-span-3">
                             <el-form-item label="Suppliers" prop="supplier_id">
-                                <el-input v-model="Product.supplier_id"></el-input>
+
+                                <el-select v-model="Product.supplier_id" placeholder="Please select a supplier">
+                                    <el-option
+                                        v-for="supplier in suppliers"
+                                        :key="supplier.id"
+                                        :label="supplier.name"
+                                        :value="supplier.id"
+                                    />
+                                </el-select> 
                             </el-form-item>
                         </div>
 

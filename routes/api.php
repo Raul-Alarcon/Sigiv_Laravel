@@ -190,7 +190,8 @@ Route::controller(EmployeeController::class)->group(function () {
 
 Route::controller(ProductController::class)->group(function () {
     Route::get('/products', 'index')->name('products.index');
-    Route::get('/products', 'getSupplier')->name('products.suppliers.service');
+    Route::get('/products/suppliers', 'getSupplier')->name('products.suppliers.service');
+    Route::get('/products/categories', 'getCategories')->name('products.category.service');
     Route::post('/products', 'store')->name('products.store');
     Route::put('/products/{id}', 'update')->name('products.update');
     Route::delete('/products/{id}', 'destroy')->name('products.destroy');
