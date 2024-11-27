@@ -17,4 +17,9 @@ class ProductStock extends Model
     ];
 
     public $timestamps = true;
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'products_id');
+    }
 }

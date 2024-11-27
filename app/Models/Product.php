@@ -22,4 +22,9 @@ class Product extends Model
     
 
     public $timnestamps = true;
+
+    public function stock()
+    {
+        return $this->hasOne(ProductStock::class, 'products_id');
+    }
 }
