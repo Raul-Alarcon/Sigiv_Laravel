@@ -15,18 +15,36 @@ class FileController extends Controller
      */
     public function upload(Request $request)
     {
-        // Validar que el archivo recibido sea una imagen
+ 
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Máx. 2MB
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:512' // Máximo 512 KB
         ]);
+ 
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filePath = $file->store('uploads/images', 'public'); 
+            return response()->json([
+                'success' => true,
+                'url' => Storage::url($filePath) 
+            ]);
+        }
+ 
+        return response()->json([
+            'success' => false,
+            'message' => 'No file uploaded'
+        ], 400);
+ 
+    }
 
-        // Almacenar la imagen en el directorio 'uploads'
-        $path = $request->file('image')->store('uploads', 'public');
+    public function destroyImg(Request $request){
+        
+        $request->validate([
+            'url' => 'required'
+        ]);
+        $url = $request->url;
+        $url = str_replace('/storage', 'public', $url);
+        Storage::delete($url);
 
-        // Construir la URL pública de la imagen
-        $url = Storage::url($path);
-
-        return response()->json(['url' => $url], 200);
+        return response()->json(null, 204);
     }
 }
-

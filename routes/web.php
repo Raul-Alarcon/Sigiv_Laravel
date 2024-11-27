@@ -37,21 +37,24 @@ Route::middleware([
     Route::get('/socialmedia', function () { return Inertia::render('SocialMedia/index'); })->name('socialmedia.page'); 
 
     Route::get('/campanies', function () { return Inertia::render('Company/index'); })->name('company.page');
+
+    // administration 
     Route::get('/customers', function () { 
-        return Inertia::render('Administration/customers'); })->name('customers.page');
-
+        return Inertia::render('Administration/customers'); })->name('customers.page'); 
     Route::get('/employee', function () { 
-            return Inertia::render('Administration/Employee'); })->name('employee.page');
-            
+            return Inertia::render('Administration/Employee'); })->name('employee.page'); 
     Route::get('/users', function () { 
-        return Inertia::render('Administration/Users'); })->name('users.page');
-
-
+        return Inertia::render('Administration/Users'); })->name('users.page');  
     Route::get('/charge', function () { 
         return Inertia::render('Administration/Charge'); })->name('charge.page');
-
+ 
     Route::get('/supplier', function () { 
         return Inertia::render('Administration/Supplier'); })->name('supplier.page');  
+
+    Route::get('/store-branch', function () {
+        return Inertia::render('Administration/StoreBranch');
+     })->name('store-branch.page');
+
 
     
     Route::get('/products', function () { 

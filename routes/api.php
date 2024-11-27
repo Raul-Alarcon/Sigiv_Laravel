@@ -242,4 +242,5 @@ Route::controller(ApplicationStatusController::class)->group(function () {
     Route::delete('/applicationStatuses/{id}', 'destroy')->name('applicationStatuses.destroy');
 });
 
-Route::post('/upload', [FileController::class, 'upload']);
+Route::post('/upload', [FileController::class, 'upload'])->name('upload_img');
+Route::delete('/upload', [FileController::class, 'destroyImg'])->name('upload_destry_img');

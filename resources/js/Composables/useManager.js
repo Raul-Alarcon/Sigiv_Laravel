@@ -78,6 +78,7 @@ export default function useManager(service) {
             opc.modal = false;
             opc.loading = false;
         } catch (error) {
+            console.log(error);
             service.opcElMessage.type = 'error';
             service.opcElMessage.message = error.message;
         }
@@ -89,7 +90,7 @@ export default function useManager(service) {
     };
 
     const handlerSubmit = async (elForm) => {
-        try {
+        try { 
             if (model.id !== 0) {
                 await handlerUpdate(elForm);
             } else {

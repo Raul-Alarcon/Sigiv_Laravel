@@ -59,48 +59,56 @@ const items = [
         index: '2-2',
         subItems: [
           {
+            title: 'Gestion Sucursales',
+            icon: 'pi pi-wave-pulse',
+            link: 'store-branch',
+            index: '2-2-1'
+          },
+
+          {
             title: 'Gestion Empresa',
             icon: 'pi pi-wave-pulse',
             link: 'campanies',
-            index: '2-2-1'
+            index: '2-2-2'
           },
 
           {
             title: 'Gestion Clientes',
             icon: 'pi pi-wave-pulse',
             link: 'customers',
-            index: '2-2-2'
+            index: '2-2-3'
           },
 
           {
             title: 'Gestion Empleados',
             icon: 'pi pi-wave-pulse',
             link: 'employee',
-            index: '2-2-3'
+            index: '2-2-4'
           },
           {
             title: 'Gestion Cargos',
             icon: 'pi pi-wave-pulse',
             link: 'charge',
-            index: '2-2-4'
+            index: '2-2-5'
           },
           {
             title: 'Gestion Proveedores',
             icon: 'pi pi-wave-pulse',
             link: 'supplier',
-            index: '2-2-5'
+            index: '2-2-6'
           },
           {
             title: 'Gestion Usuarios',
             icon: 'pi pi-wave-pulse',
             link: 'users',
-            index: '2-2-6'
+            index: '2-2-7'
           },
         ]
       },
     ]
   },
 
+  // invetory item
   {
     title: 'Inventario',
     index: '3',

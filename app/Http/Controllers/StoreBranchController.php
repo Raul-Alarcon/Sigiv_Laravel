@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\StoreBranch;
 use App\Http\Requests\StoreBranchRequest;
 use App\Services\StoreBranchService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StoreBranchController extends Controller
 {
@@ -25,19 +27,56 @@ class StoreBranchController extends Controller
 
     public function store(Request $request)
     {
-        $data = $this->storeBranchService->create($request);
-        return response()->json($data, 201);
+        try { 
+            $validatedData = $request->validate([
+                'logo' => 'nullable|string|max:200',
+                'name' => 'required|string|max:200',
+                'NIT' => 'nullable|string|max:20',
+                'description' => 'required|string',
+                'opening_date' => 'required|date', 
+            ]);
+     
+            $validatedData['opening_date'] = Carbon::parse($validatedData['opening_date'])->format('Y-m-d');
+            $data = StoreBranch::create($validatedData);
+    
+            return response()->json($data, 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 
     public function update(Request $request, string $id)
     {
-        $data = $this->storeBranchService->update($request, $id);
-        return response()->json($data, 200);
+        try {
+            $data = StoreBranch::findOrFail($id);
+            $validatedData = $request->validate([
+                'logo' => 'nullable|string|max:200',
+                'name' => 'required|string|max:200',
+                'NIT' => 'nullable|string|max:20',
+                'description' => 'required|string',
+                'opening_date' => 'required|date', 
+            ]);
+     
+            $validatedData['opening_date'] = Carbon::parse($validatedData['opening_date'])->format('Y-m-d');
+            $data->update($validatedData);
+    
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 
     public function destroy(string $id)
-    {
-        $this->storeBranchService->destroy($id);
-        return response()->json(null, 204);
+    { 
+        try {
+            $data = StoreBranch::findOrFail($id);
+            $data->delete();
+            $url = str_replace('/storage', 'public', $data->logo);
+            Storage::delete($url);
+            return response()->json(null, 204);
+
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 }
