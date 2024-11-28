@@ -23,4 +23,18 @@ class Employee extends Model
         ];
 
     public $timestamps = true;
+
+    public function storebranch()
+    {
+        return $this->belongsTo(StoreBranch::class);
+    }
+
+    public function charge()
+    {
+        return $this->belongsTo(Charge::class);
+    } 
+
+    public function gender(){
+        return $this->belongsTo(Gender::class);
+    }
 }

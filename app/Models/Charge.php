@@ -19,4 +19,9 @@ class Charge extends Model
     ];
 
     public $timestamps = true;
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

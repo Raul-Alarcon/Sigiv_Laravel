@@ -8,7 +8,7 @@ class EmployeeRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,11 +23,12 @@ class EmployeeRequest extends FormRequest
             'DUI' => 'required|string|max:10',
             'names' => 'required|string|max:200',
             'last_names' => 'required|string|max:200',
-            'age' => 'required|integer',
+            'age' => 'required|date',
             'hiring_date' => 'required|date',
             'termination_date' => 'nullable|date',
             'storebranch_id' => 'required|integer',
             'charge_id' => 'required|integer',
+            'gender_id' => 'required|integer',
         ];
     }
 }

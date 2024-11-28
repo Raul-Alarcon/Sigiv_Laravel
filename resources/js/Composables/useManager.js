@@ -5,6 +5,7 @@ export default function useManager(service) {
     const model = reactive({ ...service.model });
     const entities = ref([]);
     const rules = reactive({ ...service.rules });
+    const paginateData = ref();
 
 
     const opc = reactive({
@@ -17,6 +18,7 @@ export default function useManager(service) {
         try {
             opc.table = true;
             let response = await service.getAll();
+            paginateData.value = response;
             entities.value = response.data;
         } catch (error) {
             service.opcElMessage.type = 'error';
@@ -35,11 +37,12 @@ export default function useManager(service) {
         try {
             opc.loading = true;
             let entity = await service.update(model.id, model);
-            let index = entities.value.findIndex((entity) => entity.id === model.id);
+            let index = entities.value.findIndex((entity) => entity.id === model.id); 
             entities.value[index] = entity;
             opc.modal = false;
             opc.loading = false;
         } catch (error) {
+            console.log(error)
             service.opcElMessage.type = 'error';
             service.opcElMessage.message = error.message; 
         }
@@ -73,12 +76,11 @@ export default function useManager(service) {
     const handlerPost = async (elForm) => {
         try {
             opc.loading = true;
-            let sector = await service.create(model);
+            let sector = await service.create(model); 
             entities.value.push(sector);
             opc.modal = false;
             opc.loading = false;
-        } catch (error) {
-            console.log(error);
+        } catch (error) { 
             service.opcElMessage.type = 'error';
             service.opcElMessage.message = error.message;
         }
@@ -136,6 +138,7 @@ export default function useManager(service) {
     return {
         model,
         entities,
+        paginateData, 
         opc,
         rules,
         Main,

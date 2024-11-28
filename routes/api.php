@@ -183,6 +183,9 @@ Route::controller(CustomerController::class)->group(function () {
 
 Route::controller(EmployeeController::class)->group(function () {
     Route::get('/employees', 'index')->name('employees.index');
+    Route::get('/employees/gender', 'getGenders')->name('employees-generders.index');
+    Route::get('/employees/charge', 'getCharge')->name('employees-charges.index');
+    Route::get('/employees/storebranch', 'getStoreBranches')->name('employees-storebranch.index');
     Route::post('/employees', 'store')->name('employees.store');
     Route::put('/employees/{id}', 'update')->name('employees.update');
     Route::delete('/employees/{id}', 'destroy')->name('employees.destroy');
