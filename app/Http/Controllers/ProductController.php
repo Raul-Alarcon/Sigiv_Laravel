@@ -6,7 +6,11 @@ use App\Models\Product;
 use App\Services\ProductService;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\Productstatus;
+use App\Models\ProductStock;
+use App\Models\StoreBranch;
 use App\Models\Supplier;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -20,7 +24,7 @@ class ProductController extends Controller
     {
         $paginate = request()->query('paginate') ?? 10;
         $search = request()->query('search') ?? null;
-        $data = $this->productService->getAll($paginate, $search, ['name', 'description',  'price']);
+        $data = $this->productService->getAll($paginate, $search, ['name', 'description']);
         return response()->json($data, 200);
     }
 
@@ -28,7 +32,7 @@ class ProductController extends Controller
     {
         $paginate = $request->query('paginate', 10);
         $search = $request->query('search', null);
-        
+
         $query = Product::query();
 
         if ($search) {
@@ -38,7 +42,7 @@ class ProductController extends Controller
         $query->whereHas('stock', function ($stockQuery) {
             $stockQuery->where(function ($query) {
                 $query->where('current_stock', '<=', 0)
-                      ->orWhere('current_stock', '>=', 2);
+                    ->orWhere('current_stock', '>=', 2);
             });
         });
 
@@ -49,8 +53,16 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $data = $this->productService->create($request);
-        return response()->json($data, 201);
+
+        try {
+            $product = $this->productService->create($request); 
+            return response()->json($product, 201);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $e,
+            ], 422);
+        }
     }
 
     public function update(Request $request, string $id)
@@ -71,19 +83,28 @@ class ProductController extends Controller
         return response()->json(null, 204);
     }
 
-    public function getSupplier() {   
+    public function getSupplier()
+    {
         $supplier = Supplier::where('status', true)
             ->select(['id', 'name'])
             ->get();
 
-        return response()->json($supplier, 200); 
+        return response()->json($supplier, 200);
     }
 
-    public function getCategories(){
+    public function getCategories()
+    {
         $categories = Category::where('status', true)
             ->select(['id', 'name'])
             ->get();
 
         return response()->json($categories, 200);
     }
+
+    public function getStoreBranches()
+    {
+        $storeBranches = StoreBranch::select('id', 'name')->get();
+        return response()->json($storeBranches, 200);
+    }
+
 }

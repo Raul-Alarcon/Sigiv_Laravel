@@ -21,6 +21,7 @@ export default function useManager(service) {
             paginateData.value = response;
             entities.value = response.data;
         } catch (error) {
+            console.log(error)
             service.opcElMessage.type = 'error';
             service.opcElMessage.message = error.message;
             ElMessage(service.opcElMessage);
@@ -77,10 +78,12 @@ export default function useManager(service) {
         try {
             opc.loading = true;
             let sector = await service.create(model); 
+            console.log(sector)
             entities.value.push(sector);
             opc.modal = false;
             opc.loading = false;
         } catch (error) { 
+            console.log(error)
             service.opcElMessage.type = 'error';
             service.opcElMessage.message = error.message;
         }

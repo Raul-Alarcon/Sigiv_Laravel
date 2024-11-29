@@ -41,4 +41,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            // Eliminar el registro de stock asociado
+            $product->stock()->delete();
+        });
+    }
 }

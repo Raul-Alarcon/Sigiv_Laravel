@@ -23,4 +23,9 @@ class StoreBranch extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    public function productStock()
+    {
+        return $this->hasMany(ProductStock::class, 'store_branches_id');
+    }
 }
