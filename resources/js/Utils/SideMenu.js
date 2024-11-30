@@ -48,7 +48,14 @@ const items = [
             icon: 'pi pi-wave-pulse',
             link: 'PurchaseStatus',
             index: '2-1-7'
-          }
+          }, 
+          {
+            title: 'Estados de solicitudes',
+            icon: 'pi pi-wave-pulse',
+            link: 'application-status',
+            index: '2-1-8'
+          }, 
+          
         ]
       },
 

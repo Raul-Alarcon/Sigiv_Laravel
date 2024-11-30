@@ -53,7 +53,11 @@ Route::middleware([
 
     Route::get('/store-branch', function () {
         return Inertia::render('Administration/StoreBranch');
-     })->name('store-branch.page');
+    })->name('store-branch.page');
+    
+     Route::get('/application-status', function () {
+        return Inertia::render('Administration/ApplicationStatus');
+    })->name('application-status.page');
 
 
     

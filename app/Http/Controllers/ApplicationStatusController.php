@@ -14,7 +14,7 @@ class ApplicationStatusController extends Controller
     {
         $this->applicationStatusService = $applicationStatusService;
     }
-    public function index(\Request $request)
+    public function index(Request $request)
     {
         $paginate = $request->query('paginate') ?? 10;
         $search = $request->query('search') ?? null;
