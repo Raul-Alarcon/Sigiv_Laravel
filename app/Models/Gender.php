@@ -24,4 +24,9 @@ class Gender extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class, 'gender_id');
+    }
 }

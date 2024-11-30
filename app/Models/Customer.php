@@ -10,16 +10,20 @@ class Customer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'second_name',
-        'third_name',
-        'first_surname',
-        'second_surname',
-        'third_surname',
+        'first_names', 
+        'last_names', 
         'dui',
-        'birth',
+        'birth_date',
         'gender_id',
+        'phone',
+        'email',
+        'direcction'
     ];
 
     public $timestamps = true;
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class, 'gender_id');
+    }
 }

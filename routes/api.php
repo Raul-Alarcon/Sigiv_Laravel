@@ -176,6 +176,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(CustomerController::class)->group(function () {
     Route::get('/customers', 'index')->name('customers.index');
+    Route::get('/customers/genders', 'genders')->name('customers-genders.service');
     Route::post('/customers', 'store')->name('customers.store');
     Route::put('/customers/{id}', 'update')->name('customers.update');
     Route::delete('/customers/{id}', 'destroy')->name('customers.destroy');

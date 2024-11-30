@@ -8,7 +8,7 @@ class CustomerRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,15 +19,14 @@ class CustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string|max:20',
-            'second_name' => 'nullable|string|max:20',
-            'third_name' => 'nullable|string|max:20',
-            'first_surname' => 'required|string|max:20',
-            'second_surname' => 'nullable|string|max:20',
-            'third_surname' => 'nullable|string|max:20',
+            'first_names' => 'required|string|max:20',
+            'last_names' => 'nullable|string|max:20',    
             'dui' => 'required|string|max:11',
-            'birth' => 'required|date',
+            'birth_date' => 'required|date',
             'gender_id' => 'required|integer',
+            'phone' => 'required|string|max:9',
+            'email' => 'required|email',
+            'direcction' => 'required|string|max:100'
         ];
     }
 }
