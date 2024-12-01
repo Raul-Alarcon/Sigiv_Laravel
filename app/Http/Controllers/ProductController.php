@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $paginate = request()->query('paginate') ?? 10;
         $search = request()->query('search') ?? null;
-        $data = $this->productService->getAll($paginate, $search, ['name', 'description']);
+        $data = $this->productService->getAll($paginate, $search, ['name', 'description', 'productstatus_id']);
         return response()->json($data, 200);
     }
 
@@ -71,10 +71,18 @@ class ProductController extends Controller
         return response()->json($data, 200);
     }
 
-    public function updateStatus(string $id)
+    public function updateStatus(Request $request, string $id)
     {
-        $this->productService->updateStatus($id);
-        return response()->json(null, 204);
+        $productStatus = $request->all();
+        $product = $this->productService->updateProductStatus($productStatus['id'], $id);
+
+        if($product) {
+            $product->load(['stock.storeBranch', 'supplier', 'productStatus', 'category']);
+            $product = $this->productService->parseResponce($product);
+            return response()->json($product, 200);
+        }
+
+        return response()->json(null, 404);
     }
 
     public function destroy(string $id)
@@ -101,10 +109,20 @@ class ProductController extends Controller
         return response()->json($categories, 200);
     }
 
+    
+
     public function getStoreBranches()
     {
         $storeBranches = StoreBranch::select('id', 'name')->get();
         return response()->json($storeBranches, 200);
+    }
+
+    public function getProductStatus()
+    {
+        $productStatus = Productstatus::where('status', true)
+        ->select('id', 'name')->get();
+
+        return response()->json($productStatus, 200);
     }
 
 }

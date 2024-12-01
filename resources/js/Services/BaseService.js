@@ -50,4 +50,10 @@ export default class BaseService {
         if (responce.status != 204) throw new Error('Error updating status');
 
     }
+
+    async updateStatusWith(id, data) {
+        let responce = await axios.patch(`${this.urlApi}/${id}`, data); 
+        if (responce.status != 200) throw new Error('Error updating status');
+        return responce.data;
+    }
 }

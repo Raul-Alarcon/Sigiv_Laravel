@@ -154,6 +154,34 @@ class ProductService extends BaseService
         }
     }
 
+    public function updateProductStatus($idProductStatus, $id)
+    {
+        $product = Product::find($id);
+        if ($product) {
+            $product->productstatus_id = $idProductStatus;
+            $product->save();
+            $product->refresh();
+        }
+        return $product;
+    }
+
+
+    public function parseResponce($product){
+        $product->storeBrancheName = $product->stock->storeBranch->name;
+        $product->storebranch_id = $product->stock->storeBranch->id;
+        $product->current_stock = $product->stock->current_stock;
+        $product->category_name = $product->category->name;
+        $product->product_status = $product->productStatus->name;
+        $product->supplier_name = $product->supplier->name;
+
+        unset($product->stock);
+        unset($product->category);
+        unset($product->productStatus);
+        unset($product->supplier);
+
+        return $product;
+    }
+
     public function destroy($id)
     {
         $product = Product::find($id);  

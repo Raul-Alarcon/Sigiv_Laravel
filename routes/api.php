@@ -197,6 +197,7 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('/products/suppliers', 'getSupplier')->name('products.suppliers.service');
     Route::get('/products/categories', 'getCategories')->name('products.category.service');
     Route::get('/products/storebranch', 'getStoreBranches')->name('products.category.service');
+    Route::get('/products/status', 'getProductStatus')->name('products.status.service');
     Route::post('/products', 'store')->name('products.store');
     Route::put('/products/{id}', 'update')->name('products.update');
     Route::delete('/products/{id}', 'destroy')->name('products.destroy');

@@ -34,7 +34,7 @@ const { Main,
         </template>
 
         <template #actions>
-            <el-button type="primary" v-on:Click="openModal()" :icon="CirclePlus">Add Charger</el-button>
+            <el-button type="primary" v-on:Click="openModal()" :icon="CirclePlus">Add Status</el-button>
         </template>
 
 

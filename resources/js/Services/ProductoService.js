@@ -79,5 +79,11 @@ export default class ProductService extends BaseService {
         if (responce.status != 200) throw new Error('Error loading data');
         return responce.data;
     }
+
+    async getStatus() { 
+        let responce = await axios.get(`${this.urlApi}/status`);
+        if (responce.status != 200) throw new Error('Error loading data');
+        return responce.data;
+    }
     
 }

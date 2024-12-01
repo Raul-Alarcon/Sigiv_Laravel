@@ -24,7 +24,7 @@ const popoverRef = ref();
 const categories = ref([]);
 const suppliers = ref([]);
 const storeBranch = ref([]);
-
+const search = ref('');
 const {
     generateBarCode,
     downloadBarCode,
@@ -41,6 +41,7 @@ const {
     handlerDelete, 
     handlerEdit, 
     openModal,
+    handlerInputEnter, 
     opc,
     rules } = useManager(service);
 
@@ -150,8 +151,8 @@ const onPrintCode = (code, productName) => {
 
         <template #searchContent>
             <div class="md:w-80 w-full">
-                <!-- <el-input v-model="search" style="width: 100%" v-on:change="handlerInputEnter" placeholder="Search"
-                    :prefix-icon="Search" clearable /> -->
+                <el-input v-model="search" style="width: 100%" v-on:change="handlerInputEnter" placeholder="Search"
+                    :prefix-icon="Search" clearable />
             </div>
         </template>
 

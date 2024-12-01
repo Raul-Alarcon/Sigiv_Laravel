@@ -138,6 +138,23 @@ export default function useManager(service) {
         opc.table = false;
     };
 
+
+    const handlerUpdateStatus = async (modelId, status) => { 
+        try {
+            opc.loading = true;  
+            let entity = await service.updateStatusWith(modelId, status); 
+            let index = entities.value.findIndex((entity) => entity.id === modelId); 
+            entities.value[index] = entity; 
+            opc.loading = false;
+        } catch (error) {
+            console.log(error)
+            service.opcElMessage.type = 'error';
+            service.opcElMessage.message = error.message; 
+        } 
+        opc.loading = false; 
+        ElMessage(service.opcElMessage);
+    };
+
     return {
         model,
         entities,
@@ -151,5 +168,6 @@ export default function useManager(service) {
         handlerDelete,
         handlerChangeStatus,
         handlerInputEnter,
+        handlerUpdateStatus
     };
 }
