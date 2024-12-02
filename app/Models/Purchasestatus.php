@@ -20,4 +20,9 @@ class Purchasestatus extends Model
     ];
 
     public $timestamps = true;
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }

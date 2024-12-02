@@ -8,6 +8,7 @@ import { CirclePlus,
     ArrowDown } from '@element-plus/icons-vue';
 
 import ProductTab from './partial/ProductTab.vue';
+import OutOfStockTab from './partial/OutOfStockTab.vue';
 import { ref } from 'vue';
 
 const tabPosition = ref('left')
@@ -46,10 +47,11 @@ const positionOptions = ['top', 'right', 'left']
         <template #content> 
             <el-tabs :tab-position="tabPosition" style="" class="demo-tabs">
                 <el-tab-pane label="Products">
-                    <product-tab/> 
-
+                    <product-tab/>  
                 </el-tab-pane>
-                <el-tab-pane label="Out of stock">Config</el-tab-pane>
+                <el-tab-pane label="Out of stock">
+                    <out-of-stock-tab/>
+                </el-tab-pane>
                 <el-tab-pane label="Request">Role</el-tab-pane> 
             </el-tabs>
 

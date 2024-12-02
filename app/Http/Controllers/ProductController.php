@@ -24,7 +24,17 @@ class ProductController extends Controller
     {
         $paginate = request()->query('paginate') ?? 10;
         $search = request()->query('search') ?? null;
-        $data = $this->productService->getAll($paginate, $search, ['name', 'description', 'productstatus_id']);
+        $filterByMinimumStock = request()->query('filter_minimum_stock') == 'true';
+    
+        $data = $this->productService->getAll(
+            $paginate,
+            $search,
+            ['name', 'description', 'productstatus_id'],
+            'id',
+            'ASC',
+            $filterByMinimumStock
+        );
+    
         return response()->json($data, 200);
     }
 

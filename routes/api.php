@@ -25,7 +25,7 @@ use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\ApplicationStatusController;
 
 use App\Http\Controllers\FileController;
-
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -246,6 +246,15 @@ Route::controller(ApplicationStatusController::class)->group(function () {
     Route::post('/applicationStatuses', 'store')->name('applicationStatuses.store');
     Route::put('/applicationStatuses/{id}', 'update')->name('applicationStatuses.update');
     Route::delete('/applicationStatuses/{id}', 'destroy')->name('applicationStatuses.destroy');
+});
+
+Route::controller(PurchaseController::class)->group(function () {
+    Route::get('/purchase', 'index')->name('purchase.index');
+    Route::get('/purchase/status', 'getPurchaseStatus')->name('purchase-status.service');
+    Route::get('/purchase/suppliers', 'getSuppliers')->name('purchase-suppliers.service');
+    Route::post('/purchase', 'store')->name('purchase.store');
+    Route::put('/purchase/{id}', 'update')->name('purchase.update');
+    Route::delete('/purchase/{id}', 'destroy')->name('purchase.destroy');
 });
 
 Route::post('/upload', [FileController::class, 'upload'])->name('upload_img');

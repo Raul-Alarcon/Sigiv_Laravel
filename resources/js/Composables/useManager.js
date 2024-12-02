@@ -155,6 +155,19 @@ export default function useManager(service) {
         ElMessage(service.opcElMessage);
     };
 
+    const handlerSearch = async (query) => {
+        try {
+            opc.table = true;
+            let response = await service.searchByQuery(query);
+            entities.value = response.data;
+        } catch (error) {
+            service.opcElMessage.type = 'error';
+            service.opcElMessage.message = error.message;
+            ElMessage(service.opcElMessage);
+        } 
+        opc.table = false;
+    };
+
     return {
         model,
         entities,
@@ -168,6 +181,7 @@ export default function useManager(service) {
         handlerDelete,
         handlerChangeStatus,
         handlerInputEnter,
-        handlerUpdateStatus
+        handlerUpdateStatus,
+        handlerSearch
     };
 }
