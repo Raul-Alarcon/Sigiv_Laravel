@@ -189,11 +189,9 @@ const onPrintCode = (code, productName) => {
                     </el-table-column>
                     <el-table-column prop="category_name" label="Category" width="150" />
                     <el-table-column prop="barcode" label="Barcode" width="150">
-                        <template #default="{ row }">
-
+                        <template #default="{ row }"> 
                             <div>
-
-
+ 
                                 <el-popover v-on:show="prueba" placement="right" :width="250" trigger="click"  >
                                     <template #reference>
                                         <el-button  :icon="FullScreen" v-on:click="onShowPopover(row.barcode)"></el-button>

@@ -15,12 +15,12 @@ return new class extends Migration
         Schema::create('product_out_request', function (Blueprint $table) {
             $table->id();
             $table->date('date_request')->default(Date::now());
-            $table->date('date_out');
+            $table->date('date_out')->nullable();
             $table->text('description');
 
             $table->foreignId('product_id')->references('id')->on('products');
-            $table->foreignId('employee_id')->references('id')->on('employees'); 
-            $table->foreignId('employee_auth_id')->nullable()->references('id')->on('employees'); 
+            $table->foreignId('user_id')->references('id')->on('users'); 
+            $table->foreignId('user_auth_id')->nullable()->references('id')->on('users'); 
             $table->foreignId('status_id')->nullable()->references('id')->on('application_statuses');
 
             $table->timestamps();

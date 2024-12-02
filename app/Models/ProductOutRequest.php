@@ -9,13 +9,15 @@ class ProductOutRequest extends Model
 {
     use HasFactory;
 
+    protected $table = 'product_out_request';
+
     protected $fillable = [
         'date_request',
         'date_out',
         'description',
         'product_id',
-        'employee_id',
-        'employee_auth_id',
+        'user_id',
+        'user_auth_id',
         'status_id',
     ];
 
@@ -23,12 +25,12 @@ class ProductOutRequest extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function employee(){
-        return $this->belongsTo(Employee::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
-    public function employeeAuth(){
-        return $this->belongsTo(Employee::class);
+    public function userAuth(){
+        return $this->belongsTo(User::class);
     }
 
     public function status(){

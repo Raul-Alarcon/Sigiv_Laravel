@@ -181,8 +181,7 @@ const next = async () => {
             <!-- main container -->
             <loading-template :loading="opc.loading">
                 <el-table :data="products">
-                    <el-table-column fixed prop="id" label="ID" width="70" />
-
+                    <el-table-column fixed prop="id" label="ID" width="70" /> 
                     <el-table-column label="Information" width="300">
                         <template #default="{ row }">
                             <div class="flex flex-col gap-y-1">
