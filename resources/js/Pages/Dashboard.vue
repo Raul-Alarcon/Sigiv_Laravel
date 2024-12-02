@@ -46,30 +46,9 @@ const handleClick = () => {
  
 <template>
     <AppLayout title="Dashboard">
-        <div>
-
-            <div class="flex justify-end">
-                
-            </div>
-
-            <el-table :data="tableData" :default-sort="{ prop: 'date', order: 'descending' }" style="width: 100%">
-                <el-table-column fixed prop="date" label="Date" sortable width="150" />
-                <el-table-column prop="name" label="Name" width="120" />
-                <el-table-column prop="state" label="State" width="120" />
-                <el-table-column prop="city" label="City" width="120" />
-                <el-table-column prop="address" label="Address" width="500" />
-                <el-table-column prop="zip" label="Zip" width="120" />
-                <el-table-column fixed="right" label="Operations" min-width="120">
-                    <template #default>
-                        <el-button link type="primary" size="small" @click="handleClick">
-                            Detail
-                        </el-button>
-                        <el-button link type="primary" size="small">Edit</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>  
+        <div class="flex justify-center items-center w-full h-full">
+            <el-empty description="No data" />
         </div>
-
     </AppLayout>
 </template>
 

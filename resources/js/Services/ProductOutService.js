@@ -9,6 +9,7 @@ export default class ProductOutService extends BaseService{
             date_request:'',
             date_out:'',
             description:'',
+            count_product: 0,
             product_id:'',
             user_id:'',
             user_auth_id:'',
@@ -21,6 +22,9 @@ export default class ProductOutService extends BaseService{
                 { min: 20, message: 'The description must be at least 20 characters long', trigger: 'blur' },
                 { max: 255, message: 'The description must be no longer than 255 characters', trigger: 'blur' }
             ], 
+            count_product: [
+                { required: true, message: 'The count is required', trigger: 'blur' }, 
+            ],
             product_id: [
                 { required: true, message: 'The product is required', trigger: 'change' }
             ],
@@ -29,6 +33,12 @@ export default class ProductOutService extends BaseService{
 
     async getProducts(){
         let responce = await axios.get(`${this.urlApi}/products`);
+        if (responce.status != 200) throw new Error('Error loading data');
+        return responce.data;
+    }
+
+    async getStatus(){
+        let responce = await axios.get(`${this.urlApi}/status`);
         if (responce.status != 200) throw new Error('Error loading data');
         return responce.data;
     }

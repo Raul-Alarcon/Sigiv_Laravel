@@ -262,8 +262,10 @@ Route::controller(PurchaseController::class)->group(function () {
 Route::controller(ProductOutRequestController::class)->group(function () {
     Route::get('/product-out', 'index')->name('product-out.index');
     Route::get('/product-out/products', 'getProducts')->name('product-out-products.service');
+    Route::get('/product-out/status', 'getStatus')->name('product-out-products.service');
     Route::post('/product-out', 'store')->name('product-out.store');
     Route::put('/product-out/{id}', 'update')->name('product-out.update');
+    Route::patch('/product-out/{id}', 'updateStatus')->name('product-out.update.status');
     Route::delete('/product-out/{id}', 'destroy')->name('product-out.destroy');
 });
 

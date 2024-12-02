@@ -25,7 +25,7 @@ class ProductOutRequestController extends Controller
     public function index(Request $request){
         $paginate = $request->query('paginate') ?? 10; 
         $search = $request->query('search') ?? null; 
-        $data = $this->productOutService->getAll($paginate, $search, ['name']);
+        $data = $this->productOutService->getAll($paginate, $search, ['description']);
         return response()->json($data, 200); 
     }  
 
@@ -44,10 +44,18 @@ class ProductOutRequestController extends Controller
         return response()->json($data, 200);
     } 
 
-    public function updateStatus(string $id)
+    public function updateStatus(Request $request, string $id)
     {
-        $this->productOutService->updateStatus($id);
-        return response()->json(null, 204);
+        $productStatus = $request->all();
+        $out = $this->productOutService->updateProductStatus($productStatus['id'], $id);
+
+        if($out) {
+            $out->load(['product', 'user', 'userAuth','status']);
+            $out = $this->productOutService->parseResponce($out);
+            return response()->json($out, 200);
+        }
+
+        return response()->json(null, 404);
     }
 
     public function destroy(string $id)
@@ -80,4 +88,7 @@ class ProductOutRequestController extends Controller
     
         return response()->json($products);
     }
+
+
+ 
 }

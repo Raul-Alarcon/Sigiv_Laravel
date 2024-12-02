@@ -25,6 +25,7 @@ const service = new ProductOutService();
 const search = ref('');
 const products_select = ref([]);
 const elform = ref();
+const status = ref();
 
 const {
     Main,
@@ -33,12 +34,16 @@ const {
     opc,
     openModal,
     rules, 
-    handlerSubmit
+    handlerSubmit,
+    handlerUpdateStatus,
+    handlerDelete,
+    handlerInputEnter
 } = useManager(service);
 
 (async () => {
     await Main();
     products_select.value = await service.getProducts();
+    status.value = await service.getStatus();
 })();
 
 
@@ -51,6 +56,10 @@ const onSubmit = async (form) => {
             await handlerSubmit(form);
         }
     });
+}
+
+const onSelectedStatus = async (row, status) => {
+    await handlerUpdateStatus(row.id, status);
 }
 
 </script>
@@ -91,8 +100,7 @@ const onSubmit = async (form) => {
             </div>
         </template>
 
-        <template #content> 
-
+        <template #content>  
             <loading-template :loading="opc.loading">
                 <el-table :data="products">
                     <el-table-column fixed prop="id" label="ID" width="70"></el-table-column>
@@ -106,6 +114,8 @@ const onSubmit = async (form) => {
                             </div>
                         </template>
                     </el-table-column>
+
+                    <el-table-column prop="count_product" label="Count product" width="150"></el-table-column>
 
                     <el-table-column label="Status" width="300">
                         <template #default="{ row }">
@@ -129,7 +139,7 @@ const onSubmit = async (form) => {
                         </template>
                     </el-table-column>
 
-                    <el-table-column fixed="right" label="Actions" min-width="200">
+                    <el-table-column fixed="right" label="Actions" min-width="150">
                         <template #default="{ row }">
 
                             <div class="flex space-x-3 justify-center">
@@ -138,19 +148,17 @@ const onSubmit = async (form) => {
                                     <template #dropdown>
                                         <el-dropdown-menu>
 
-                                            <!-- <div v-for="st in itemsStatus" :key="st.id">
+                                            <div v-for="st in status" :key="st.id">
                                                 <el-dropdown-item v-on:click="onSelectedStatus(row, st)">
                                                     {{ st.name }}
                                                 </el-dropdown-item>
-                                            </div> -->
+                                            </div>
 
 
                                         </el-dropdown-menu>
                                     </template>
                                 </el-dropdown>
-
-                                <el-button type="primary" v-on:Click="onPurchaseItem(row)" :icon="Notification"
-                                    plain></el-button>
+ 
 
                                 <el-button type="danger" v-on:Click="handlerDelete(row)" :icon="Delete"
                                     plain></el-button>
@@ -177,6 +185,10 @@ const onSubmit = async (form) => {
 
                         <el-form-item label="Description" prop="description" style="width: 100%;">
                             <el-input type="textarea" v-model="model.description"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="Count product" prop="count_product">
+                            <el-input-number v-model="model.count_product" />
                         </el-form-item>
 
                         <div class="flex pt-3 justify-end w-full">

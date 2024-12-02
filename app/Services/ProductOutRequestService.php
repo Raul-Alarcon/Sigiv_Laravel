@@ -44,4 +44,34 @@ class ProductOutRequestService extends BaseService
 
         return $paginatedUser;
     }
+
+    public function parseResponce($out) {
+        $out->user_name = $out->user->name;
+        $out->product_name = $out->product->name;
+        $out->status_name = $out->status->name;
+
+        if($out->userAuth){
+            $out->user_auth_name = $out->userAuth->name;
+            unset($out->userAuth);
+        }
+
+
+        unset($out->user);
+        unset($out->product);
+        unset($out->status);
+
+        return $out;
+    }
+
+
+    public function updateProductStatus($idProductStatus, $id)
+    {
+        $product = ProductOutRequest::find($id);
+        if ($product) {
+            $product->status_id = $idProductStatus;
+            $product->save();
+            $product->refresh();
+        }
+        return $product;
+    }
 }

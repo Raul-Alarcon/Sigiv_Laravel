@@ -15,6 +15,7 @@ class ProductOutRequest extends Model
         'date_request',
         'date_out',
         'description',
+        'count_product',
         'product_id',
         'user_id',
         'user_auth_id',
